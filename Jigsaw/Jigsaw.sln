@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jigsaw", "Jigsaw\Jigsaw\Jigsaw.csproj", "{6A2A0083-6504-4B0A-8E33-E174C15004A6}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "JigsawContent", "Jigsaw\JigsawContent\JigsawContent.contentproj", "{A7184631-406E-4CC6-893E-596CECD98EF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A2A0083-6504-4B0A-8E33-E174C15004A6}.Debug|x86.ActiveCfg = Debug|x86
+		{6A2A0083-6504-4B0A-8E33-E174C15004A6}.Debug|x86.Build.0 = Debug|x86
+		{6A2A0083-6504-4B0A-8E33-E174C15004A6}.Release|x86.ActiveCfg = Release|x86
+		{6A2A0083-6504-4B0A-8E33-E174C15004A6}.Release|x86.Build.0 = Release|x86
+		{A7184631-406E-4CC6-893E-596CECD98EF2}.Debug|x86.ActiveCfg = Debug|x86
+		{A7184631-406E-4CC6-893E-596CECD98EF2}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
