@@ -49,12 +49,14 @@ namespace Jigsaw
                 dir.Y = -1;
             }
 
+            //no double-chording!!!
             if (dir.LengthSquared() > 0)
             {
                 dir.Normalize();
             }
 
 
+            //X
             if (dir.X == 0)
             {
                 _acceleration.X = 0;
@@ -64,6 +66,7 @@ namespace Jigsaw
                 _acceleration.X = (float)(dir.X * ACCEL_RATE * gameTime.TotalGameTime.TotalSeconds);
             }
 
+            //Y
             if (dir.Y == 0)
             {
                 _acceleration.Y = 0;

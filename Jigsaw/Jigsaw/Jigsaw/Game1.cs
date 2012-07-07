@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ThirdParty;
+using System.ComponentModel.Design;
 
 namespace Jigsaw
 {
@@ -19,11 +21,21 @@ namespace Jigsaw
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private ContentBuilder dynamicContentBuilder;
+        private ContentManager dynamicContentManager;
+
         Scene currentScene;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+
+            dynamicContentBuilder = new ContentBuilder();
+            ServiceContainer services = new ServiceContainer();
+            // Register the service, so components like ContentManager can find it.
+            services.AddService(typeof(IGraphicsDeviceService), graphics);
+
+            dynamicContentManager = new ContentManager(services, dynamicContentBuilder.OutputDirectory);
             Content.RootDirectory = "Content";
         }
 
@@ -89,7 +101,6 @@ namespace Jigsaw
 
             // Draw the sprite.
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-
 
             //draw current scene
             currentScene.Draw(spriteBatch, gameTime);
