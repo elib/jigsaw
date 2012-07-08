@@ -22,7 +22,7 @@ namespace Jigsaw
 
         public override void SetTexture(ContentManager content)
         {
-            _texture = content.Load<Texture2D>("columbo");
+            _texture = content.Load<Texture2D>("player");
         }
 
         public override void Update(GameTime gameTime)

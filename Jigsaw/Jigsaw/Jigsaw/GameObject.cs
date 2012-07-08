@@ -15,11 +15,14 @@ namespace Jigsaw
         private bool _initialized = false;
         private Vector2 _position;
 
+        private Vector2 _size;
+
         public Vector2 _velocity, _acceleration, _drag, _maxVelocity;
 
         public GameObject()
         {
             _position = Vector2.Zero;
+            _size = new Vector2(10, 10);
             _velocity = Vector2.Zero;
             _acceleration = Vector2.Zero;
             _drag = Vector2.Zero;
@@ -53,6 +56,7 @@ namespace Jigsaw
             {
                 throw new Exception("Not yet initialized!");
             }
+            //Rectangle r_dest = new Rectangle(10, 10, 64, 64);//_position.X, _position.Y, _size.X, _size.Y);
 
             batch.Draw(_texture, _position, Color.White);
         }

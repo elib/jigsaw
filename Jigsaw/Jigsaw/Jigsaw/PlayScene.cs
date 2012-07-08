@@ -11,7 +11,7 @@ namespace Jigsaw
         public PlayScene(Game1 game ) : base(game) 
         {
             Player p = new Player();
-            p.Initialize(_game.dynamicContentManager);
+            p.Initialize(_game.Content);
             this.add(p);
         }
     }

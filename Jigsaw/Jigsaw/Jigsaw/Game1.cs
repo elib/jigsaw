@@ -102,8 +102,9 @@ namespace Jigsaw
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            Matrix scaleMatrix = Matrix.CreateScale(2.0f);
             // Draw the sprite.
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);
 
             //draw current scene
             currentScene.Draw(spriteBatch, gameTime);
