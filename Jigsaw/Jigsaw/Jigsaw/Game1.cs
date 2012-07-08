@@ -22,7 +22,7 @@ namespace Jigsaw
         SpriteBatch spriteBatch;
 
         private ContentBuilder dynamicContentBuilder;
-        private ContentManager dynamicContentManager;
+        public ContentManager dynamicContentManager;
 
         Scene currentScene;
 
@@ -60,6 +60,9 @@ namespace Jigsaw
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            dynamicContentBuilder.Add(@"D:\Projects\Games\Jigsaw\Assets\dynamic\1.jpg", "columbo", null, null);
+            dynamicContentBuilder.Build();
 
             currentScene = new PlayScene(this);
 

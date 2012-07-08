@@ -10,9 +10,9 @@ namespace Jigsaw
     {
 
         private List<GameObject> _objects;
-        protected Game _game;
+        protected Game1 _game;
 
-        public Scene(Game game)
+        public Scene(Game1 game)
         {
             _game = game;
             _objects = new List<GameObject>();
