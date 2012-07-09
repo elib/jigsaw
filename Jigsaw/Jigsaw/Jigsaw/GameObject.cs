@@ -13,21 +13,35 @@ namespace Jigsaw
 
         protected Texture2D _texture;
         private bool _initialized = false;
-        private Vector2 _position;
+        protected Vector2 _position;
 
-        private Vector2 _size;
+        protected Vector2 _size;
 
         public Vector2 _velocity, _acceleration, _drag, _maxVelocity;
 
         public GameObject()
         {
             _position = Vector2.Zero;
-            _size = new Vector2(10, 10);
+            _size = Vector2.Zero;
             _velocity = Vector2.Zero;
             _acceleration = Vector2.Zero;
             _drag = Vector2.Zero;
             _maxVelocity = Vector2.Zero;
             _texture = null;
+        }
+
+        public Rectangle DestinationRect
+        {
+            get
+            {
+                return new Rectangle((int) _position.X, (int) _position.Y, (int)_size.X, (int)_size.Y);
+            }
+        }
+
+        public GameObject(Texture2D initialTexture) : this()
+        {
+            _texture = initialTexture;
+            _initialized = true;
         }
 
         public void Initialize(ContentManager content)
@@ -42,7 +56,7 @@ namespace Jigsaw
         /// <param name="content"></param>
         public virtual void SetTexture(ContentManager content)
         {
-            _texture = content.Load<Texture2D>("player");
+            _texture = content.Load<Texture2D>("blank");
         }
 
         /// <summary>

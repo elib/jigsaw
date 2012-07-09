@@ -10,6 +10,10 @@ namespace Jigsaw
     {
         public PlayScene(Game1 game ) : base(game) 
         {
+            Puzzle puzzle = new Puzzle(game);
+            puzzle.Create("columbo", 50);
+            this.add(puzzle);
+
             Player p = new Player();
             p.Initialize(_game.Content);
             this.add(p);

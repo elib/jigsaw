@@ -104,7 +104,7 @@ namespace Jigsaw
 
             Matrix scaleMatrix = Matrix.CreateScale(2.0f);
             // Draw the sprite.
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);
 
             //draw current scene
             currentScene.Draw(spriteBatch, gameTime);

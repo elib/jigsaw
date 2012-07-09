@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
 
 namespace Jigsaw
 {
-    public class Scene : Updatable
+    //it's like a scene ... but has extra stuff to help us check locations and stuff?
+    class GameObjectGroup : Updatable
     {
 
-        private List<Updatable> _objects;
+        private List<GameObject> _objects;
         protected Game1 _game;
 
-        public Scene(Game1 game)
+        public GameObjectGroup(Game1 game)
         {
             _game = game;
-            _objects = new List<Updatable>();
+            _objects = new List<GameObject>();
         }
 
         public void empty()
@@ -23,7 +23,7 @@ namespace Jigsaw
             _objects.Clear();
         }
 
-        public void add(Updatable newobj)
+        public void add(GameObject newobj)
         {
             _objects.Add(newobj);
         }

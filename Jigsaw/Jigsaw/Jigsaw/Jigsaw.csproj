@@ -113,11 +113,14 @@
     <Compile Include="ContentBuilder.cs" />
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="GameObjectGroup.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayScene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Puzzle.cs" />
+    <Compile Include="PuzzlePiece.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Updatable.cs" />
   </ItemGroup>
