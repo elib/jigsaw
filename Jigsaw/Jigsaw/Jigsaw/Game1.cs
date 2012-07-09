@@ -24,6 +24,8 @@ namespace Jigsaw
         private ContentBuilder dynamicContentBuilder;
         public ContentManager dynamicContentManager;
 
+        private float _zoomFactor = 2;
+
         Scene currentScene;
 
         public Game1()
@@ -37,6 +39,22 @@ namespace Jigsaw
 
             dynamicContentManager = new ContentManager(services, dynamicContentBuilder.OutputDirectory);
             Content.RootDirectory = "Content";
+        }
+
+        public int Width
+        {
+            get
+            {
+                return (int)(GraphicsDevice.Viewport.Width / _zoomFactor);
+            }
+        }
+
+        public int Height
+        {
+            get
+            {
+                return (int)(GraphicsDevice.Viewport.Height / _zoomFactor);
+            }
         }
 
         /// <summary>
@@ -102,7 +120,7 @@ namespace Jigsaw
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            Matrix scaleMatrix = Matrix.CreateScale(2.0f);
+            Matrix scaleMatrix = Matrix.CreateScale(_zoomFactor);
             // Draw the sprite.
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);
 

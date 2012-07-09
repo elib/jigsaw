@@ -13,9 +13,9 @@ namespace Jigsaw
 
         protected Texture2D _texture;
         private bool _initialized = false;
-        protected Vector2 _position;
+        public Vector2 _position;
 
-        protected Vector2 _size;
+        public Vector2 _size;
 
         public Vector2 _velocity, _acceleration, _drag, _maxVelocity;
 

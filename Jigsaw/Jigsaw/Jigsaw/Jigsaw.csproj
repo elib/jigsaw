@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="ContentBuilder.cs" />
     <Compile Include="ErrorLogger.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectGroup.cs" />
     <Compile Include="Player.cs" />
