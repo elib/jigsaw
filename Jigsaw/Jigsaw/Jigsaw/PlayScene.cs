@@ -11,7 +11,7 @@ namespace Jigsaw
         public PlayScene(Game1 game ) : base(game) 
         {
             Puzzle puzzle = new Puzzle(game);
-            puzzle.Create("columbo", 50);
+            puzzle.Create("columbo", 100);
             this.add(puzzle);
 
             Player p = new Player();

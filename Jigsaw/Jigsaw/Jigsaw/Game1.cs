@@ -30,7 +30,13 @@ namespace Jigsaw
 
         public Game1()
         {
+            //first ..
+            Core.game = this;
+
+            /// hmm =(
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1100;
+            graphics.PreferredBackBufferHeight = 600;
 
             dynamicContentBuilder = new ContentBuilder();
             ServiceContainer services = new ServiceContainer();

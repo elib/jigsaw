@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentBuilder.cs" />
+    <Compile Include="Core.cs" />
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GameObject.cs" />

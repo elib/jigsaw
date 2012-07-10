@@ -18,6 +18,7 @@ namespace Jigsaw
         {
             _maxVelocity.X = _maxVelocity.Y = 100;
             _drag.X = _drag.Y = 250;
+            _size.X = _size.Y = 32;
         }
 
         public override void SetTexture(ContentManager content)
@@ -76,6 +77,25 @@ namespace Jigsaw
                 _acceleration.Y = (float)(dir.Y * ACCEL_RATE * gameTime.TotalGameTime.TotalSeconds);
             }
 
+            if (_position.X < 0)
+            {
+                _position.X = 0;
+            }
+
+            if (_position.Y < 0)
+            {
+                _position.Y = 0;
+            }
+
+            if (_position.X + this._size.X > Core.game.Width)
+            {
+                _position.X = Core.game.Width - this._size.X;
+            }
+
+            if (_position.Y + this._size.Y > Core.game.Height)
+            {
+                _position.Y = Core.game.Height - this._size.Y;
+            }
         }
     }
 }
