@@ -116,6 +116,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectGroup.cs" />
+    <Compile Include="InputManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayScene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

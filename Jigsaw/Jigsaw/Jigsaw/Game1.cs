@@ -26,7 +26,7 @@ namespace Jigsaw
 
         private float _zoomFactor = 2;
 
-        Scene currentScene;
+        public Scene currentScene;
 
         public Game1()
         {
@@ -112,6 +112,8 @@ namespace Jigsaw
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            InputManager.update();
 
             currentScene.Update(gameTime);
 

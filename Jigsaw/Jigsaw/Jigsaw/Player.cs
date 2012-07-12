@@ -13,6 +13,8 @@ namespace Jigsaw
     {
         private const float ACCEL_RATE = 150;
 
+        private PuzzlePiece attachedPiece = null;
+
         public Player()
             : base()
         {
@@ -77,6 +79,36 @@ namespace Jigsaw
                 _acceleration.Y = (float)(dir.Y * ACCEL_RATE * gameTime.TotalGameTime.TotalSeconds);
             }
 
+
+            if(InputManager.justPressedKeys.Contains(Keys.X))
+            {
+                //toggle grab a piece
+                if (attachedPiece != null)
+                {
+                    Detach();
+                }
+                else
+                {
+                    Attach();
+                }
+            }
+
+            ConstrainToScreen();
+
+            UpdateAttachedPiece();
+        }
+
+        private void UpdateAttachedPiece()
+        {
+            if (attachedPiece != null)
+            {
+                attachedPiece._position.X = this._position.X;
+                attachedPiece._position.Y = this._position.Y;
+            }
+        }
+
+        private void ConstrainToScreen()
+        {
             if (_position.X < 0)
             {
                 _position.X = 0;
@@ -96,6 +128,21 @@ namespace Jigsaw
             {
                 _position.Y = Core.game.Height - this._size.Y;
             }
+        }
+
+        private void Attach()
+        {
+            GameObject puzzlePiece = ((PlayScene)Core.game.currentScene).puzzle.GetFirstOverlappingMember(this);
+            if (puzzlePiece != null)
+            {
+                this.attachedPiece = (PuzzlePiece)puzzlePiece;
+            }
+        }
+
+        private void Detach()
+        {
+            //add cooler detach logic
+            this.attachedPiece = null;
         }
     }
 }

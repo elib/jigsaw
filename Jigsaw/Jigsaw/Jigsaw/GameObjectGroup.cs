@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Jigsaw
 {
@@ -39,6 +40,33 @@ namespace Jigsaw
             }
         }
 
+        public GameObject GetFirstOverlappingMember(GameObject source)
+        {
+            Rectangle srcRect = source.DestinationRect;
+
+            foreach (var item in this)
+            {
+                if (item is GameObjectGroup)
+                {
+                    var ret = ((GameObjectGroup)item).GetFirstOverlappingMember(source);
+                    if (ret != null)
+                    {
+                        return ret;
+                    }
+                }
+                else if (item is GameObject)
+                {
+                    var itemGo = (GameObject)item;
+                    if (itemGo.DestinationRect.Intersects(srcRect))
+                    {
+                        return itemGo;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public IEnumerator<Updatable> GetEnumerator()
         {
             return this._objects.GetEnumerator();
@@ -48,8 +76,6 @@ namespace Jigsaw
         {
             return this._objects.GetEnumerator();
         }
-
-
 
         public void Add(Updatable item)
         {
