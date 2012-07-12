@@ -12,8 +12,9 @@ namespace Jigsaw
         public Puzzle(Game1 game) : base(game) { }
 
         private Random _rnd = new Random();
+        private Canvas _canvas;
 
-        public void Create(string imageSource, int roughSize)
+        public void Create(string imageSource, int roughSize, Canvas canvas)
         {
             //load info
             Texture2D texture = _game.dynamicContentManager.Load<Texture2D>(imageSource);
@@ -21,6 +22,9 @@ namespace Jigsaw
             {
                 throw new Exception("Rough size requested is too large for this image.");
             }
+
+            _canvas = canvas;
+            _canvas.setSize(texture.Width, texture.Height);
 
             chopUp(roughSize, texture);
 

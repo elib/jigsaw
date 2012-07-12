@@ -46,7 +46,7 @@ namespace Jigsaw
 
         public void Initialize(ContentManager content)
         {
-            SetTexture(content);
+            _texture = SetTexture(content);
             _initialized = true;
         }
 
@@ -54,9 +54,9 @@ namespace Jigsaw
         /// Override me.
         /// </summary>
         /// <param name="content"></param>
-        public virtual void SetTexture(ContentManager content)
+        public virtual Texture2D SetTexture(ContentManager content)
         {
-            _texture = content.Load<Texture2D>("blank");
+            return content.Load<Texture2D>("blank");
         }
 
         /// <summary>

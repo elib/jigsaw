@@ -7,10 +7,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Jigsaw
 {
-    class PuzzlePiece : GameObject
+    class PuzzlePiece : ScalableGameObject
     {
         Rectangle _coords;
         Puzzle _puzzle;
+
+        protected override Rectangle? GetTextureCoords()
+        {
+            return _coords;
+        }
 
         public PuzzlePiece(Texture2D texture, Rectangle pieceCoordinates, Puzzle parentPuzzle) : base(texture)
         {
@@ -19,11 +24,6 @@ namespace Jigsaw
 
             _size.X = _coords.Width;
             _size.Y = _coords.Height;
-        }
-
-        public override void Draw(SpriteBatch batch, GameTime gameTime)
-        {
-            batch.Draw(_texture, DestinationRect, _coords, Color.White);
         }
     }
 }

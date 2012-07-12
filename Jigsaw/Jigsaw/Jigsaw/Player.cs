@@ -23,9 +23,9 @@ namespace Jigsaw
             _size.X = _size.Y = 32;
         }
 
-        public override void SetTexture(ContentManager content)
+        public override Texture2D SetTexture(ContentManager content)
         {
-            _texture = content.Load<Texture2D>("player");
+            return content.Load<Texture2D>("player");
         }
 
         public override void Update(GameTime gameTime)
