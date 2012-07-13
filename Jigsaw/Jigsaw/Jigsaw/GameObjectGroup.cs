@@ -11,11 +11,9 @@ namespace Jigsaw
     {
 
         private List<Updatable> _objects;
-        protected Game1 _game;
 
-        public GameObjectGroup(Game1 game)
+        public GameObjectGroup()
         {
-            _game = game;
             _objects = new List<Updatable>();
         }
 

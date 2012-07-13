@@ -9,7 +9,7 @@ namespace Jigsaw
 {
     class Puzzle : GameObjectGroup
     {
-        public Puzzle(Game1 game) : base(game) { }
+        public Puzzle() : base() { }
 
         private Random _rnd = new Random();
         private Canvas _canvas;
@@ -17,7 +17,7 @@ namespace Jigsaw
         public void Create(string imageSource, int roughSize, Canvas canvas)
         {
             //load info
-            Texture2D texture = _game.dynamicContentManager.Load<Texture2D>(imageSource);
+            Texture2D texture = Core.game.dynamicContentManager.Load<Texture2D>(imageSource);
             if (roughSize > texture.Width || roughSize > texture.Height)
             {
                 throw new Exception("Rough size requested is too large for this image.");
@@ -55,15 +55,17 @@ namespace Jigsaw
 
             GameObject gobj = (GameObject)obj;
 
+            int leftSpace = (int) ((Core.game.Width - _canvas._size.X - margin*4 - gobj._size.X*2) / 2);
+
             int left = margin;
             if(!leftSide)
             {
-                left = _game.Width - margin - ((int)gobj._size.X);
+                left = (int) (_canvas._position.X + _canvas._size.X + margin);
             }
 
-            gobj._position.X = left;
+            gobj._position.X = (int)(left + leftSpace * _rnd.NextDouble());
 
-            int top = margin + (int)(_rnd.NextDouble() * (_game.Height - margin * 2 - (int)gobj._size.Y));
+            int top = margin + (int)(_rnd.NextDouble() * (Core.game.Height - margin * 2 - (int)gobj._size.Y));
             gobj._position.Y = top;
         }
 

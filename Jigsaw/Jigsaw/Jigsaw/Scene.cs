@@ -10,11 +10,9 @@ namespace Jigsaw
     {
 
         private List<Updatable> _objects;
-        protected Game1 _game;
 
-        public Scene(Game1 game)
+        public Scene()
         {
-            _game = game;
             _objects = new List<Updatable>();
         }
 

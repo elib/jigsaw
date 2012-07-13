@@ -12,18 +12,18 @@ namespace Jigsaw
         public Player player;
         public Canvas canvas;
 
-        public PlayScene(Game1 game ) : base(game) 
+        public PlayScene() : base()
         {
             canvas = new Canvas();
-            canvas.Initialize(game.Content);
+            canvas.Initialize(Core.game.Content);
             this.add(canvas);
 
-            puzzle = new Puzzle(game);
+            puzzle = new Puzzle();
             puzzle.Create("columbo", 100, canvas);
             this.add(puzzle);
 
             player = new Player();
-            player.Initialize(_game.Content);
+            player.Initialize(Core.game.Content);
             this.add(player);
         }
     }

@@ -88,7 +88,7 @@ namespace Jigsaw
             dynamicContentBuilder.Add(@"D:\Projects\Games\Jigsaw\Assets\dynamic\1.jpg", "columbo", null, null);
             dynamicContentBuilder.Build();
 
-            currentScene = new PlayScene(this);
+            currentScene = new PlayScene();
 
             // TODO: use this.Content to load your game content here
         }
