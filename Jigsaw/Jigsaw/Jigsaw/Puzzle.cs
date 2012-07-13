@@ -84,7 +84,7 @@ namespace Jigsaw
                 for (int y = 0; y < timesY; y++)
                 {
                     Rectangle pieceRect = new Rectangle(x * actualX, y * actualY, actualX, actualY);
-                    PuzzlePiece p = new PuzzlePiece(texture, pieceRect, this);
+                    PuzzlePiece p = new PuzzlePiece(texture, pieceRect, this, _canvas._position + _canvas.offSet);
                     this.Add(p);
                 }
             }

@@ -142,6 +142,10 @@ namespace Jigsaw
         private void Detach()
         {
             //add cooler detach logic
+            if (this.attachedPiece.TrySnap())
+            {
+                //notify puzzle, and get it out of here
+            }
             this.attachedPiece = null;
         }
     }
