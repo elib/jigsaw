@@ -13,6 +13,8 @@ namespace Jigsaw
         Puzzle _puzzle;
         Vector2 _destinationOffset;
 
+        private const int MARGIN_FACTOR = 3;
+
         protected override Rectangle? GetTextureCoords()
         {
             return _coords;
@@ -24,6 +26,7 @@ namespace Jigsaw
             {
                 Rectangle rect = DestinationRect;
                 rect.Offset(new Point((int) -_destinationOffset.X, (int) - _destinationOffset.Y));
+                rect.Inflate(-rect.Width / MARGIN_FACTOR, -rect.Height / MARGIN_FACTOR);
                 return rect;
             }
         }
@@ -40,11 +43,16 @@ namespace Jigsaw
 
         public bool TrySnap()
         {
+            Rectangle insetCoords = _coords;
+            insetCoords.Inflate(-_coords.Width / MARGIN_FACTOR, -_coords.Height / MARGIN_FACTOR);
+
             //if this piece is in a good spot, snap it properly and gogogogo
-            if (_coords.Intersects(OffsetDestinationRect))
+            if (insetCoords.Intersects(OffsetDestinationRect))
             {
                 _position.X = _destinationOffset.X + _coords.X;
                 _position.Y = _destinationOffset.Y + _coords.Y;
+
+                _puzzle.PiecePlaced(this);
                 return true;
             }
 

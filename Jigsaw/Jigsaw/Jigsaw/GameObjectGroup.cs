@@ -42,6 +42,8 @@ namespace Jigsaw
         {
             Rectangle srcRect = source.DestinationRect;
 
+            GameObject returnable = null;
+
             foreach (var item in this)
             {
                 if (item is GameObjectGroup)
@@ -49,7 +51,7 @@ namespace Jigsaw
                     var ret = ((GameObjectGroup)item).GetFirstOverlappingMember(source);
                     if (ret != null)
                     {
-                        return ret;
+                        returnable = ret;
                     }
                 }
                 else if (item is GameObject)
@@ -57,12 +59,12 @@ namespace Jigsaw
                     var itemGo = (GameObject)item;
                     if (itemGo.DestinationRect.Intersects(srcRect))
                     {
-                        return itemGo;
+                        returnable = itemGo;
                     }
                 }
             }
 
-            return null;
+            return returnable;
         }
 
         public IEnumerator<Updatable> GetEnumerator()
@@ -107,7 +109,7 @@ namespace Jigsaw
 
         public bool Remove(Updatable item)
         {
-            throw new NotImplementedException();
+            return this._objects.Remove(item);
         }
     }
 }

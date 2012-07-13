@@ -90,5 +90,11 @@ namespace Jigsaw
             }
         }
 
+
+        internal void PiecePlaced(PuzzlePiece puzzlePiece)
+        {
+            this.Remove(puzzlePiece);
+            ((PlayScene)Core.game.currentScene).completedPieces.Add(puzzlePiece);
+        }
     }
 }

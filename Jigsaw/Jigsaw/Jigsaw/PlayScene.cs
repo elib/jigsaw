@@ -12,11 +12,16 @@ namespace Jigsaw
         public Player player;
         public Canvas canvas;
 
+        public GameObjectGroup completedPieces;
+
         public PlayScene() : base()
         {
             canvas = new Canvas();
             canvas.Initialize(Core.game.Content);
             this.add(canvas);
+
+            completedPieces = new GameObjectGroup();
+            this.add(completedPieces);
 
             puzzle = new Puzzle();
             puzzle.Create("columbo", 80, canvas);

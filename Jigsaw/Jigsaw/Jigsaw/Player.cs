@@ -144,7 +144,7 @@ namespace Jigsaw
             //add cooler detach logic
             if (this.attachedPiece.TrySnap())
             {
-                //notify puzzle, and get it out of here
+                //I dunno, anything to do here?
             }
             this.attachedPiece = null;
         }
