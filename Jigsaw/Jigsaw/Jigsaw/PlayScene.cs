@@ -19,7 +19,7 @@ namespace Jigsaw
             this.add(canvas);
 
             puzzle = new Puzzle();
-            puzzle.Create("columbo", 100, canvas);
+            puzzle.Create("columbo", 80, canvas);
             this.add(puzzle);
 
             player = new Player();

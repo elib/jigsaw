@@ -28,15 +28,30 @@ namespace Jigsaw
 
         public Scene currentScene;
 
+        private void SetDimensions(bool fullscreen)
+        {
+            if (fullscreen)
+            {
+                //get default dimensions used by screen
+                DisplayMode dm = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
+                graphics.PreferredBackBufferFormat = dm.Format;
+                graphics.PreferredBackBufferHeight = dm.Height;
+                graphics.PreferredBackBufferWidth = dm.Width;
+                graphics.IsFullScreen = true;
+            }
+            else
+            {
+                graphics.PreferredBackBufferWidth = 1100;
+                graphics.PreferredBackBufferHeight = 600;
+            }
+        }
+
         public Game1()
         {
-            //first ..
             Core.game = this;
 
-            /// hmm =(
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1100;
-            graphics.PreferredBackBufferHeight = 600;
+            SetDimensions(false);
 
             dynamicContentBuilder = new ContentBuilder();
             ServiceContainer services = new ServiceContainer();
