@@ -72,7 +72,13 @@ namespace Jigsaw
             }
             //Rectangle r_dest = new Rectangle(10, 10, 64, 64);//_position.X, _position.Y, _size.X, _size.Y);
 
-            batch.Draw(_texture, _position, Color.White);
+            batch.Draw(_texture, DestinationRect, GetAnimationFrame(), Color.White);
+        }
+
+        private Rectangle? GetAnimationFrame()
+        {
+            //if animated ... get current animation
+            return null;
         }
 
         /// <summary>

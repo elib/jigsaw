@@ -90,6 +90,14 @@ namespace Jigsaw
             }
         }
 
+        public bool IsComplete
+        {
+            get
+            {
+                return (this.Count == 0);
+            }
+        }
+
 
         internal void PiecePlaced(PuzzlePiece puzzlePiece)
         {

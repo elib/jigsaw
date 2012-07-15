@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Jigsaw
 {
-    class PuzzlePiece : ScalableGameObject
+    class PuzzlePiece : GameObject
     {
         Rectangle _coords;
         Puzzle _puzzle;
@@ -15,7 +15,7 @@ namespace Jigsaw
 
         private const int MARGIN_FACTOR = 3;
 
-        protected override Rectangle? GetTextureCoords()
+        protected Rectangle? GetTextureCoords()
         {
             return _coords;
         }
@@ -57,6 +57,11 @@ namespace Jigsaw
             }
 
             return false;
+        }
+
+        public override void Draw(SpriteBatch batch, GameTime gameTime)
+        {
+            batch.Draw(_texture, DestinationRect, GetTextureCoords(), Color.White);
         }
     }
 }
