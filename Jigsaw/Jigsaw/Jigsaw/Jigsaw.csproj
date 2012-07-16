@@ -110,6 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimationInfo.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="ContentBuilder.cs" />
     <Compile Include="Core.cs" />

@@ -21,6 +21,9 @@ namespace Jigsaw
             _maxVelocity.X = _maxVelocity.Y = 100;
             _drag.X = _drag.Y = 250;
             _size.X = _size.Y = 32;
+
+            _animation.Add("idle", new int[] { 0 }, 1);
+            _animation.Add("flicker", new int[] { 0, 1 }, 10);
         }
 
         public override Texture2D SetTexture(ContentManager content)
@@ -77,6 +80,17 @@ namespace Jigsaw
             else
             {
                 _acceleration.Y = (float)(dir.Y * ACCEL_RATE * gameTime.TotalGameTime.TotalSeconds);
+            }
+
+            //this.Play("flicker");
+
+            if (Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                this.Play("flicker");
+            }
+            else
+            {
+                this.Play("idle");
             }
 
 

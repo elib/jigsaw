@@ -19,6 +19,8 @@ namespace Jigsaw
 
         public Vector2 _velocity, _acceleration, _drag, _maxVelocity;
 
+        protected AnimationInfo _animation;
+
         public GameObject()
         {
             _position = Vector2.Zero;
@@ -28,6 +30,8 @@ namespace Jigsaw
             _drag = Vector2.Zero;
             _maxVelocity = Vector2.Zero;
             _texture = null;
+
+            _animation = new AnimationInfo();
         }
 
         public Rectangle DestinationRect
@@ -78,7 +82,21 @@ namespace Jigsaw
         private Rectangle? GetAnimationFrame()
         {
             //if animated ... get current animation
-            return null;
+            if (_animation.CurrentAnimation == null)
+            {
+                return null;
+            }
+
+            int number = _animation.CurrentAnimation.CurrentFrameNumber;
+            Rectangle animatedSourceRect = new Rectangle((int) (number*_size.X), 0, (int)_size.X, (int)_size.Y);
+            return animatedSourceRect;
+        }
+
+
+
+        public void Play(string animationName)
+        {
+            _animation.SetCurrentAnimation(animationName);
         }
 
         /// <summary>
@@ -93,6 +111,8 @@ namespace Jigsaw
             }
 
             updateMotion(gameTime);
+
+            _animation.Update(gameTime);
         }
 
 
