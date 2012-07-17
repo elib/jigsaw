@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using ThirdParty;
 using System.ComponentModel.Design;
+using System.IO;
 
 namespace Jigsaw
 {
@@ -23,6 +24,8 @@ namespace Jigsaw
 
         private ContentBuilder dynamicContentBuilder;
         public ContentManager dynamicContentManager;
+
+        public List<string> availablePuzzleImages;
 
         private float _zoomFactor = 2;
 
@@ -100,7 +103,18 @@ namespace Jigsaw
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            dynamicContentBuilder.Add(@"D:\Projects\Games\Jigsaw\Assets\dynamic\1.jpg", "columbo", null, null);
+            availablePuzzleImages = new List<string>();
+
+            DirectoryInfo d = Directory.CreateDirectory(@"D:\Projects\Games\Jigsaw\Assets\dynamic\");
+            foreach(var f in d.EnumerateFiles("*.jpg"))
+            {
+                string name = f.Name;
+                
+                dynamicContentBuilder.Add(f.FullName, name, null, null);
+
+                availablePuzzleImages.Add(name);
+            }
+
             dynamicContentBuilder.Build();
 
             currentScene = new PlayScene();

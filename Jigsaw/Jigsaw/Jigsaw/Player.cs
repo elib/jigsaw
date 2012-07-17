@@ -82,9 +82,7 @@ namespace Jigsaw
                 _acceleration.Y = (float)(dir.Y * ACCEL_RATE * gameTime.TotalGameTime.TotalSeconds);
             }
 
-            //this.Play("flicker");
-
-            if (Keyboard.GetState().IsKeyDown(Keys.G))
+            if (attachedPiece != null)
             {
                 this.Play("flicker");
             }
@@ -92,7 +90,6 @@ namespace Jigsaw
             {
                 this.Play("idle");
             }
-
 
             if(InputManager.justPressedKeys.Contains(Keys.X))
             {

@@ -16,6 +16,9 @@ namespace Jigsaw
 
         public PlayScene() : base()
         {
+            //get next puzzle image
+            string puzzleImage = Core.GetNextImage();
+
             canvas = new Canvas();
             canvas.Initialize(Core.game.Content);
             this.add(canvas);
@@ -24,7 +27,7 @@ namespace Jigsaw
             this.add(completedPieces);
 
             puzzle = new Puzzle();
-            puzzle.Create("columbo", 80, canvas);
+            puzzle.Create(puzzleImage, 80, canvas);
             this.add(puzzle);
 
             player = new Player();

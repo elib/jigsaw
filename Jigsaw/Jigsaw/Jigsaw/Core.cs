@@ -10,5 +10,29 @@ namespace Jigsaw
         public static Game1 game;
 
         private Core() { } //nope
+
+        private static Random _rnd = new Random();
+
+        private static string lastChosen = null;
+        public static string GetNextImage()
+        {
+            if (game.availablePuzzleImages.Count == 1)
+            {
+                //special case -- we can't avoid duplicates.
+                return game.availablePuzzleImages[0];
+            }
+
+            List<string> temporaryList = new List<string>(game.availablePuzzleImages);
+
+            if (lastChosen != null)
+            {
+                //remove last chosen from the temporary list
+                temporaryList.Remove(lastChosen);
+            }
+
+            int randIndex = (int) (Math.Floor(_rnd.NextDouble() * temporaryList.Count));
+            lastChosen = temporaryList[randIndex];
+            return lastChosen;
+        }
     }
 }
