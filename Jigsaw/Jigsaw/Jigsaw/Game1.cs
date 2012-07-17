@@ -29,7 +29,9 @@ namespace Jigsaw
 
         private float _zoomFactor = 2;
 
-        public Scene currentScene;
+        public Scene CurrentScene { get; private set; }
+
+        private Scene _nextScene = null;
 
         private void SetDimensions(bool fullscreen)
         {
@@ -117,9 +119,8 @@ namespace Jigsaw
 
             dynamicContentBuilder.Build();
 
-            currentScene = new PlayScene();
-
-            // TODO: use this.Content to load your game content here
+            CurrentScene = new PlayScene();
+            _nextScene = CurrentScene;
         }
 
         /// <summary>
@@ -138,13 +139,18 @@ namespace Jigsaw
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (_nextScene != CurrentScene)
+            {
+                CurrentScene = _nextScene;
+            }
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             InputManager.update();
 
-            currentScene.Update(gameTime);
+            CurrentScene.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -162,11 +168,16 @@ namespace Jigsaw
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);
 
             //draw current scene
-            currentScene.Draw(spriteBatch, gameTime);
+            CurrentScene.Draw(spriteBatch, gameTime);
             
             spriteBatch.End();
             
             base.Draw(gameTime);
+        }
+
+        internal void SetScene(PlayScene newScene)
+        {
+            _nextScene = newScene;
         }
     }
 }

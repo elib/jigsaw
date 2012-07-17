@@ -27,12 +27,22 @@ namespace Jigsaw
             this.add(completedPieces);
 
             puzzle = new Puzzle();
-            puzzle.Create(puzzleImage, 80, canvas);
+            puzzle.Create(puzzleImage, 120, canvas);
             this.add(puzzle);
 
             player = new Player();
             player.Initialize(Core.game.Content);
             this.add(player);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (puzzle.IsComplete)
+            {
+                //woo hoo, time to move on
+                Core.game.SetScene(new PlayScene());
+            }
         }
     }
 }

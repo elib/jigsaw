@@ -143,7 +143,7 @@ namespace Jigsaw
 
         private void Attach()
         {
-            GameObject puzzlePiece = ((PlayScene)Core.game.currentScene).puzzle.GetFirstOverlappingMember(this);
+            GameObject puzzlePiece = ((PlayScene)Core.game.CurrentScene).puzzle.GetFirstOverlappingMember(this);
             if (puzzlePiece != null)
             {
                 this.attachedPiece = (PuzzlePiece)puzzlePiece;
