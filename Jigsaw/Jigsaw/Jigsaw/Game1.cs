@@ -139,6 +139,8 @@ namespace Jigsaw
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            Core.Update(gameTime);
+
             if (_nextScene != CurrentScene)
             {
                 CurrentScene = _nextScene;

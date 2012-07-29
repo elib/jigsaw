@@ -21,6 +21,12 @@ namespace Jigsaw
 
         protected AnimationInfo _animation;
 
+        private const double BOUNCE_TIME = 0.25;
+        private const double BOUNCE_AMOUNT = 0.5;
+
+        private double _stopBounceTime = 0;
+        private Vector2 _bounceScale = Vector2.One;
+
         public GameObject()
         {
             _position = Vector2.Zero;
@@ -38,7 +44,7 @@ namespace Jigsaw
         {
             get
             {
-                return new Rectangle((int) _position.X, (int) _position.Y, (int)_size.X, (int)_size.Y);
+                return new Rectangle((int) _position.X, (int) _position.Y, (int)(_size.X * _bounceScale.X), (int)(_size.Y * _bounceScale.Y));
             }
         }
 
@@ -112,7 +118,51 @@ namespace Jigsaw
 
             updateMotion(gameTime);
 
+            if (_stopBounceTime != 0 && _stopBounceTime > gameTime.TotalGameTime.TotalSeconds)
+            {
+                //still bouncing
+                updateBounce(gameTime.TotalGameTime.TotalSeconds);
+            }
+            else
+            {
+                _bounceScale = Vector2.One;
+            }
+
             _animation.Update(gameTime);
+        }
+
+        public void Bounce(bool force)
+        {
+            if (_stopBounceTime > Core.TotalTime)
+            {
+                if (force)
+                {
+                    _stopBounceTime = Core.TotalTime + BOUNCE_TIME;
+                }
+            }
+            else
+            {
+                //no need to force
+                _stopBounceTime = Core.TotalTime + BOUNCE_TIME;
+            }
+        }
+
+        private void updateBounce(double totalTime)
+        {
+            //get amount of bounce 0 to 1
+            double timeValue = 1.0 - ((_stopBounceTime - totalTime) / BOUNCE_TIME);
+            if (timeValue <= 0 || timeValue >= 1.0)
+            {
+                _bounceScale = Vector2.One;
+            }
+            else
+            {
+                //y1 = 1 + amplitude1*(sin(pi * (x)) .^ 2);
+                double xBounce = 1.0 + BOUNCE_AMOUNT * Math.Sin(2 * Math.PI * timeValue);
+                double yBounce = 1.0 + BOUNCE_AMOUNT * Math.Sin(2 * Math.PI * (timeValue + 0.5));
+                _bounceScale.X = (float)xBounce;
+                _bounceScale.Y = (float)yBounce;
+            }
         }
 
 

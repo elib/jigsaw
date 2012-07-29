@@ -156,6 +156,7 @@ namespace Jigsaw
             if (this.attachedPiece.TrySnap())
             {
                 //I dunno, anything to do here?
+                this.attachedPiece.Bounce(false);
             }
             this.attachedPiece = null;
         }

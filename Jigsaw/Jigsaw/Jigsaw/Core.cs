@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Jigsaw
 {
@@ -12,6 +13,13 @@ namespace Jigsaw
         private Core() { } //nope
 
         private static Random _rnd = new Random();
+
+        public static double TotalTime { get; private set; }
+
+        public static void Update(GameTime gameTime)
+        {
+            TotalTime = gameTime.TotalGameTime.TotalSeconds;
+        }
 
         private static string lastChosen = null;
         public static string GetNextImage()
