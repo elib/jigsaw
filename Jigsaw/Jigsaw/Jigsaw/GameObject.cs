@@ -21,8 +21,12 @@ namespace Jigsaw
 
         protected AnimationInfo _animation;
 
-        private const double BOUNCE_TIME = 0.25;
-        private const double BOUNCE_AMOUNT = 0.5;
+        public const double MIN_BOUNCE_PERCENTAGE = 0.01;
+        public const double MEDIUM_BOUNCE_PERCENTAGE = 0.05;
+        public const double MAX_BOUNCE_PERCENTAGE = 0.1;
+
+        private const double BOUNCE_TIME = 0.2;
+        private double _bounceAmount = MIN_BOUNCE_PERCENTAGE;
 
         private double _stopBounceTime = 0;
         private Vector2 _bounceScale = Vector2.One;
@@ -44,11 +48,16 @@ namespace Jigsaw
         {
             get
             {
-                return new Rectangle((int) _position.X, (int) _position.Y, (int)(_size.X * _bounceScale.X), (int)(_size.Y * _bounceScale.Y));
+                return new Rectangle(
+                                (int)(_position.X - (_size.X * (1.0 - _bounceScale.X) / 2)),
+                                (int)(_position.Y - (_size.Y * (1.0 - _bounceScale.Y) / 2)),
+                                (int)(_size.X * _bounceScale.X),
+                                (int)(_size.Y * _bounceScale.Y));
             }
         }
 
-        public GameObject(Texture2D initialTexture) : this()
+        public GameObject(Texture2D initialTexture)
+            : this()
         {
             _texture = initialTexture;
             _initialized = true;
@@ -94,7 +103,7 @@ namespace Jigsaw
             }
 
             int number = _animation.CurrentAnimation.CurrentFrameNumber;
-            Rectangle animatedSourceRect = new Rectangle((int) (number*_size.X), 0, (int)_size.X, (int)_size.Y);
+            Rectangle animatedSourceRect = new Rectangle((int)(number * _size.X), 0, (int)_size.X, (int)_size.Y);
             return animatedSourceRect;
         }
 
@@ -131,20 +140,38 @@ namespace Jigsaw
             _animation.Update(gameTime);
         }
 
-        public void Bounce(bool force)
+        private void setBounce(double percentage)
+        {
+            
+            _stopBounceTime = Core.TotalTime + BOUNCE_TIME;
+            _bounceAmount = percentage;
+        }
+
+        public void Bounce(double percentage)
+        {
+            Bounce(percentage, false);
+        }
+
+        public void Bounce(double percentage, bool force)
         {
             if (_stopBounceTime > Core.TotalTime)
             {
                 if (force)
                 {
-                    _stopBounceTime = Core.TotalTime + BOUNCE_TIME;
+                    setBounce(percentage);
                 }
             }
             else
             {
                 //no need to force
-                _stopBounceTime = Core.TotalTime + BOUNCE_TIME;
+                setBounce(percentage);
             }
+        }
+
+        public void RandomBounce()
+        {
+            double percentage = Core.rand.NextDouble() * (MAX_BOUNCE_PERCENTAGE - MIN_BOUNCE_PERCENTAGE) + MIN_BOUNCE_PERCENTAGE;
+            Bounce(percentage);
         }
 
         private void updateBounce(double totalTime)
@@ -158,24 +185,24 @@ namespace Jigsaw
             else
             {
                 //y1 = 1 + amplitude1*(sin(pi * (x)) .^ 2);
-                double xBounce = 1.0 + BOUNCE_AMOUNT * Math.Sin(2 * Math.PI * timeValue);
-                double yBounce = 1.0 + BOUNCE_AMOUNT * Math.Sin(2 * Math.PI * (timeValue + 0.5));
+                double xBounce = 1.0 + _bounceAmount * Math.Sin(2 * Math.PI * timeValue);
+                double yBounce = 1.0 + _bounceAmount * Math.Sin(2 * Math.PI * (timeValue + 0.5));
                 _bounceScale.X = (float)xBounce;
                 _bounceScale.Y = (float)yBounce;
             }
         }
 
 
-       /**
-        * STOLEN FROM FLIXEL!!
-        * 
-		 * Internal function for updating the position and speed of this object.
-		 * Useful for cases when you need to update this but are buried down in too many supers.
-		 * Does a slightly fancier-than-normal integration to help with higher fidelity framerate-independenct motion.
-		 */
-		protected void updateMotion(GameTime gameTime)
-		{
-			float delta, velocityDelta;
+        /**
+         * STOLEN FROM FLIXEL!!
+         * 
+          * Internal function for updating the position and speed of this object.
+          * Useful for cases when you need to update this but are buried down in too many supers.
+          * Does a slightly fancier-than-normal integration to help with higher fidelity framerate-independenct motion.
+          */
+        protected void updateMotion(GameTime gameTime)
+        {
+            float delta, velocityDelta;
 
             ////wait with angular ...
             //velocityDelta = (computeVelocity(gameTime, angularVelocity, angularAcceleration, angularDrag, maxAngular) - angularVelocity)/2;
@@ -184,17 +211,17 @@ namespace Jigsaw
             //angularVelocity += velocityDelta;
 
             velocityDelta = (computeVelocity(gameTime, _velocity.X, _acceleration.X, _drag.X, _maxVelocity.X) - _velocity.X) / 2;
-			_velocity.X += velocityDelta;
-			delta = (float)(_velocity.X*gameTime.ElapsedGameTime.TotalSeconds);
-			_velocity.X += velocityDelta;
-			_position.X += delta;
+            _velocity.X += velocityDelta;
+            delta = (float)(_velocity.X * gameTime.ElapsedGameTime.TotalSeconds);
+            _velocity.X += velocityDelta;
+            _position.X += delta;
 
             velocityDelta = (computeVelocity(gameTime, _velocity.Y, _acceleration.Y, _drag.Y, _maxVelocity.Y) - _velocity.Y) / 2;
             _velocity.Y += velocityDelta;
             delta = (float)(_velocity.Y * gameTime.ElapsedGameTime.TotalSeconds);
             _velocity.Y += velocityDelta;
             _position.Y += delta;
-		}
+        }
 
         static public float computeVelocity(GameTime gameTime, float Velocity)
         {
@@ -212,27 +239,27 @@ namespace Jigsaw
         }
 
         static public float computeVelocity(GameTime gameTime, float Velocity, float Acceleration, float Drag, float Max)
-		{
-			if(Acceleration != 0)
-				Velocity += (float) (Acceleration*gameTime.ElapsedGameTime.TotalSeconds);
-			else if(Drag != 0)
-			{
+        {
+            if (Acceleration != 0)
+                Velocity += (float)(Acceleration * gameTime.ElapsedGameTime.TotalSeconds);
+            else if (Drag != 0)
+            {
                 float newDrag = (float)(Drag * gameTime.ElapsedGameTime.TotalSeconds);
                 if (Velocity - newDrag > 0)
                     Velocity = Velocity - newDrag;
                 else if (Velocity + newDrag < 0)
                     Velocity += newDrag;
-				else
-					Velocity = 0;
-			}
-			if((Velocity != 0) && (Max != 10000))
-			{
-				if(Velocity > Max)
-					Velocity = Max;
-				else if(Velocity < -Max)
-					Velocity = -Max;
-			}
-			return Velocity;
-		}
+                else
+                    Velocity = 0;
+            }
+            if ((Velocity != 0) && (Max != 10000))
+            {
+                if (Velocity > Max)
+                    Velocity = Max;
+                else if (Velocity < -Max)
+                    Velocity = -Max;
+            }
+            return Velocity;
+        }
     }
 }

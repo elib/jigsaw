@@ -11,7 +11,6 @@ namespace Jigsaw
     {
         public Puzzle() : base() { }
 
-        private Random _rnd = new Random();
         private Canvas _canvas;
 
         public void Create(string imageSource, int roughSize, Canvas canvas)
@@ -36,7 +35,7 @@ namespace Jigsaw
             int target = count / 2;
             if (count % 2 != 0)
             {
-                if (_rnd.NextDouble() > 0.5)
+                if (Core.rand.NextDouble() > 0.5)
                 {
                     target++;
                 }
@@ -63,9 +62,9 @@ namespace Jigsaw
                 left = (int) (_canvas._position.X + _canvas._size.X + margin);
             }
 
-            gobj._position.X = (int)(left + leftSpace * _rnd.NextDouble());
+            gobj._position.X = (int)(left + leftSpace * Core.rand.NextDouble());
 
-            int top = margin + (int)(_rnd.NextDouble() * (Core.game.Height - margin * 2 - (int)gobj._size.Y));
+            int top = margin + (int)(Core.rand.NextDouble() * (Core.game.Height - margin * 2 - (int)gobj._size.Y));
             gobj._position.Y = top;
         }
 

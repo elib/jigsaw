@@ -147,6 +147,7 @@ namespace Jigsaw
             if (puzzlePiece != null)
             {
                 this.attachedPiece = (PuzzlePiece)puzzlePiece;
+                this.attachedPiece.Bounce(GameObject.MIN_BOUNCE_PERCENTAGE, true);
             }
         }
 
@@ -155,8 +156,8 @@ namespace Jigsaw
             //add cooler detach logic
             if (this.attachedPiece.TrySnap())
             {
-                //I dunno, anything to do here?
-                this.attachedPiece.Bounce(false);
+                //visual effects here
+                this.attachedPiece.Bounce(GameObject.MEDIUM_BOUNCE_PERCENTAGE, true);
             }
             this.attachedPiece = null;
         }

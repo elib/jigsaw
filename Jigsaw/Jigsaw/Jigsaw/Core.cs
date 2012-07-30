@@ -12,7 +12,7 @@ namespace Jigsaw
 
         private Core() { } //nope
 
-        private static Random _rnd = new Random();
+        public static Random rand = new Random();
 
         public static double TotalTime { get; private set; }
 
@@ -38,7 +38,7 @@ namespace Jigsaw
                 temporaryList.Remove(lastChosen);
             }
 
-            int randIndex = (int) (Math.Floor(_rnd.NextDouble() * temporaryList.Count));
+            int randIndex = (int) (Math.Floor(rand.NextDouble() * temporaryList.Count));
             lastChosen = temporaryList[randIndex];
             return lastChosen;
         }
