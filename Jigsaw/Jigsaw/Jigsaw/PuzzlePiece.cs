@@ -59,6 +59,11 @@ namespace Jigsaw
             return false;
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
         public override void Draw(SpriteBatch batch, GameTime gameTime)
         {
             batch.Draw(_texture, DestinationRect, GetTextureCoords(), Color.White);

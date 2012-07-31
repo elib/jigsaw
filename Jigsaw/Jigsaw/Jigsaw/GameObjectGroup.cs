@@ -111,5 +111,29 @@ namespace Jigsaw
         {
             return this._objects.Remove(item);
         }
+
+
+        public int IndexOf(Updatable item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(int index, Updatable item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Updatable this[int index]
+        {
+            get
+            {
+                return _objects[index];
+            }
+        }
     }
 }

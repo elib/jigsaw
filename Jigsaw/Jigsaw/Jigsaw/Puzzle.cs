@@ -11,7 +11,9 @@ namespace Jigsaw
     {
         public Puzzle() : base() { }
 
+        private const double FLICKER_BOUNCE_TIME = 0.1;
         private Canvas _canvas;
+        private TimeNotifier _flickerBounceNotifier = new TimeNotifier(FLICKER_BOUNCE_TIME);
 
         public void Create(string imageSource, int roughSize, Canvas canvas)
         {
@@ -46,6 +48,8 @@ namespace Jigsaw
                 bool leftSide = i++ < target;
                 PutPiece(obj, leftSide);
             }
+
+            _flickerBounceNotifier.NotifyMe();
         }
 
         private void PutPiece(Updatable obj, bool leftSide)
@@ -102,6 +106,25 @@ namespace Jigsaw
         {
             this.Remove(puzzlePiece);
             ((PlayScene)Core.game.CurrentScene).completedPieces.Add(puzzlePiece);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (_flickerBounceNotifier.Notify)
+            {
+                _flickerBounceNotifier.NotifyMe();
+
+                if (Core.rand.NextDouble() < 0.1)
+                {
+                    int which = (int)(Core.rand.NextDouble() * Count);
+                    if (which <= Count)
+                    {
+                        ((GameObject)this[which]).RandomBounce();
+                    }
+                }
+            }
         }
     }
 }
