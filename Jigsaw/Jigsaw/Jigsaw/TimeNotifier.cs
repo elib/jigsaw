@@ -12,36 +12,39 @@ namespace Jigsaw
 
         private double _defaultTimerTime = -1;
 
+        private double _currentTimerLength = 0;
+
         public TimeNotifier()
         {
         }
 
-        public TimeNotifier(double defaultTimerTime) : this()
+        public TimeNotifier(double defaultTimerTime)
+            : this()
         {
             _defaultTimerTime = defaultTimerTime;
         }
 
-        public void NotifyMe()
+        public bool NotifyMe()
         {
-            NotifyMe(false);
+            return NotifyMe(false);
         }
 
-        public void NotifyMe(bool overwritePrevious)
+        public bool NotifyMe(bool overwritePrevious)
         {
             if (_defaultTimerTime < 0)
             {
                 throw new ArgumentOutOfRangeException("You must provide a default timer value in the constructor to use this method!");
             }
 
-            NotifyMe(_defaultTimerTime, overwritePrevious);
+            return NotifyMe(_defaultTimerTime, overwritePrevious);
         }
 
-        public void NotifyMe(double howLong)
+        public bool NotifyMe(double howLong)
         {
-            NotifyMe(howLong, false);
+            return NotifyMe(howLong, false);
         }
 
-        public void NotifyMe(double howLong, bool overwritePrevious)
+        public bool NotifyMe(double howLong, bool overwritePrevious)
         {
             if (_notificationTime == 0 || (hasTimeElapsed() && _hasNotified) || overwritePrevious)
             {
@@ -50,12 +53,21 @@ namespace Jigsaw
                 // or timer has already elapsed AND we have already sent notification
                 // or "overwrite" specified
                 setTimer(howLong);
+                return true;
             }
+
+            return false;
         }
 
         private void setTimer(double howLong)
         {
+            if (howLong <= 0)
+            {
+                throw new ArgumentOutOfRangeException("Timer must have a positive, non-zero length.");
+            }
+
             _notificationTime = Core.TotalTime + howLong;
+            _currentTimerLength = howLong;
             _hasNotified = false;
         }
 
@@ -73,23 +85,23 @@ namespace Jigsaw
             }
         }
 
-        //public double TimerFraction
-        //{
-        //    get
-        //    {
-        //        if (hasTimeElapsed())
-        //        {
-        //            return 1;
-        //        }
+        public double TimerFraction
+        {
+            get
+            {
+                if (hasTimeElapsed())
+                {
+                    return 1;
+                }
 
-        //        if (_notificationTime == 0)
-        //        {
-        //            return 0;
-        //        }
+                if (_notificationTime == 0)
+                {
+                    return 0;
+                }
 
-                
-        //    }
-        //}
+                return (1.0 - ((_notificationTime - Core.TotalTime) / _currentTimerLength));
+            }
+        }
 
         private bool hasTimeElapsed()
         {
@@ -99,6 +111,19 @@ namespace Jigsaw
             }
 
             return false;
+        }
+
+        public bool StillGoing
+        {
+            get
+            {
+                if (_notificationTime > 0 && _notificationTime > Core.TotalTime)
+                {
+                    return true;
+                }
+
+                return false;
+            }
         }
     }
 }

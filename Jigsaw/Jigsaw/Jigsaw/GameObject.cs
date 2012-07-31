@@ -26,9 +26,8 @@ namespace Jigsaw
         public const double MAX_BOUNCE_PERCENTAGE = 0.1;
 
         private const double BOUNCE_TIME = 0.2;
+        private TimeNotifier _bounceTimer = new TimeNotifier(BOUNCE_TIME);
         private double _bounceAmount = MIN_BOUNCE_PERCENTAGE;
-
-        private double _stopBounceTime = 0;
         private Vector2 _bounceScale = Vector2.One;
 
         public GameObject()
@@ -127,10 +126,9 @@ namespace Jigsaw
 
             updateMotion(gameTime);
 
-            if (_stopBounceTime != 0 && _stopBounceTime > gameTime.TotalGameTime.TotalSeconds)
+            if (_bounceTimer.StillGoing)
             {
-                //still bouncing
-                updateBounce(gameTime.TotalGameTime.TotalSeconds);
+                updateBounce();
             }
             else
             {
@@ -142,8 +140,6 @@ namespace Jigsaw
 
         private void setBounce(double percentage)
         {
-            
-            _stopBounceTime = Core.TotalTime + BOUNCE_TIME;
             _bounceAmount = percentage;
         }
 
@@ -154,16 +150,8 @@ namespace Jigsaw
 
         public void Bounce(double percentage, bool force)
         {
-            if (_stopBounceTime > Core.TotalTime)
+            if (_bounceTimer.NotifyMe(force))
             {
-                if (force)
-                {
-                    setBounce(percentage);
-                }
-            }
-            else
-            {
-                //no need to force
                 setBounce(percentage);
             }
         }
@@ -174,10 +162,10 @@ namespace Jigsaw
             Bounce(percentage);
         }
 
-        private void updateBounce(double totalTime)
+        private void updateBounce()
         {
             //get amount of bounce 0 to 1
-            double timeValue = 1.0 - ((_stopBounceTime - totalTime) / BOUNCE_TIME);
+            double timeValue = _bounceTimer.TimerFraction;
             if (timeValue <= 0 || timeValue >= 1.0)
             {
                 _bounceScale = Vector2.One;
