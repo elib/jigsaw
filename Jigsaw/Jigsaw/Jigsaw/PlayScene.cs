@@ -15,7 +15,7 @@ namespace Jigsaw
         public GameObjectGroup completedPieces;
         public GameObjectGroup carriedPieces;
 
-        private TimeNotifier idleTimer = new TimeNotifier(10);
+        private TimeNotifier idleTimer = new TimeNotifier(3);
 
         public PlayScene() : base()
         {

@@ -43,12 +43,19 @@ namespace Jigsaw
             if (_puzzle == null)
             {
                 //attract mode
+
+                float radius = Math.Min(Core.game.Width, Core.game.Height) / 3;
+                double speed = 1 / 3.0;
+
+                //do silly animation
+                this._position.X = (Core.game.Width / 2) - (this._size.X / 2) + (float)(radius * Math.Cos(2 * speed * Math.PI * Core.TotalTime));
+                this._position.Y = (Core.game.Height / 2) - (this._size.Y / 2) + (float)(radius * Math.Sin(2 * speed * Math.PI * Core.TotalTime));
                 return;
             }
 
             Vector2 dir = Vector2.Zero;
 
-            if(Keyboard.GetState(0).IsKeyDown(Keys.Right))
+            if (Keyboard.GetState(0).IsKeyDown(Keys.Right))
             {
                 dir.X = 1;
             }
@@ -102,7 +109,7 @@ namespace Jigsaw
                 this.Play("idle");
             }
 
-            if(InputManager.justPressedKeys.Contains(Keys.X))
+            if (InputManager.justPressedKeys.Contains(Keys.X))
             {
                 //toggle grab a piece
                 if (attachedPiece != null)
