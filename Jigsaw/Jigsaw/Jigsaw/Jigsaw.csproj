@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimationInfo.cs" />
+    <Compile Include="AttractModeScene.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="ContentBuilder.cs" />
     <Compile Include="Core.cs" />

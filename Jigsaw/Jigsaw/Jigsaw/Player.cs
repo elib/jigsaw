@@ -28,6 +28,7 @@ namespace Jigsaw
 
             _animation.Add("idle", new int[] { 0 }, 1);
             _animation.Add("flicker", new int[] { 0, 1 }, 10);
+            Play("idle");
         }
 
         public override Texture2D SetTexture(ContentManager content)
@@ -38,6 +39,12 @@ namespace Jigsaw
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (_puzzle == null)
+            {
+                //attract mode
+                return;
+            }
 
             Vector2 dir = Vector2.Zero;
 

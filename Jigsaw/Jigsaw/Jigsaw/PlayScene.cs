@@ -15,6 +15,8 @@ namespace Jigsaw
         public GameObjectGroup completedPieces;
         public GameObjectGroup carriedPieces;
 
+        private TimeNotifier idleTimer = new TimeNotifier(10);
+
         public PlayScene() : base()
         {
             //get next puzzle image
@@ -37,11 +39,27 @@ namespace Jigsaw
             player = new Player(puzzle);
             player.Initialize(Core.game.Content);
             this.add(player);
+
+            idleTimer.NotifyMe();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (InputManager.justPressedKeys.Count > 0)
+            {
+                idleTimer.NotifyMe(true); //force reset if any key pressed
+            }
+            else
+            {
+                if (idleTimer.Notify)
+                {
+                    Core.game.SetScene(new AttractModeScene());
+                    return;
+                }
+            }
+
             if (puzzle.IsComplete)
             {
                 //woo hoo, time to move on

@@ -177,7 +177,7 @@ namespace Jigsaw
             base.Draw(gameTime);
         }
 
-        internal void SetScene(PlayScene newScene)
+        internal void SetScene(Scene newScene)
         {
             _nextScene = newScene;
         }
