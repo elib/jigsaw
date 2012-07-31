@@ -15,12 +15,16 @@ namespace Jigsaw
 
         private PuzzlePiece attachedPiece = null;
 
-        public Player()
+        private Puzzle _puzzle;
+
+        public Player(Puzzle puzzle)
             : base()
         {
             _maxVelocity.X = _maxVelocity.Y = 100;
             _drag.X = _drag.Y = 250;
             _size.X = _size.Y = 32;
+
+            _puzzle = puzzle;
 
             _animation.Add("idle", new int[] { 0 }, 1);
             _animation.Add("flicker", new int[] { 0, 1 }, 10);
@@ -143,23 +147,30 @@ namespace Jigsaw
 
         private void Attach()
         {
-            GameObject puzzlePiece = ((PlayScene)Core.game.CurrentScene).puzzle.GetFirstOverlappingMember(this);
+            GameObject puzzlePiece = _puzzle.GetFirstOverlappingMember(this);
             if (puzzlePiece != null)
             {
                 this.attachedPiece = (PuzzlePiece)puzzlePiece;
                 this.attachedPiece.Bounce(GameObject.MIN_BOUNCE_PERCENTAGE, true);
+                _puzzle.PiecePicked((PuzzlePiece)puzzlePiece);
             }
         }
 
         private void Detach()
         {
             //add cooler detach logic
-            if (this.attachedPiece.TrySnap())
+            if (attachedPiece.TrySnap())
             {
                 //visual effects here
-                this.attachedPiece.Bounce(GameObject.MEDIUM_BOUNCE_PERCENTAGE, true);
+                attachedPiece.Bounce(GameObject.MEDIUM_BOUNCE_PERCENTAGE, true);
+                _puzzle.PiecePlaced(attachedPiece);
             }
-            this.attachedPiece = null;
+            else
+            {
+                _puzzle.PieceReplaced(attachedPiece);
+            }
+
+            attachedPiece = null;
         }
     }
 }

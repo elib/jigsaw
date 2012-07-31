@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Jigsaw
 {
-    class Canvas : GameObject
+    public class Canvas : GameObject
     {
         public override Texture2D SetTexture(Microsoft.Xna.Framework.Content.ContentManager content)
         {

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 namespace Jigsaw
 {
     //it's like a scene ... but has extra stuff to help us check locations and stuff?
-    class GameObjectGroup : Updatable, IEnumerable<Updatable>, ICollection<Updatable>
+    public class GameObjectGroup : Updatable, IEnumerable<Updatable>, ICollection<Updatable>
     {
 
         private List<Updatable> _objects;

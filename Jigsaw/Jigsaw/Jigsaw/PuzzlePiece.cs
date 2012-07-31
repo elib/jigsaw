@@ -52,7 +52,6 @@ namespace Jigsaw
                 _position.X = _destinationOffset.X + _coords.X;
                 _position.Y = _destinationOffset.Y + _coords.Y;
 
-                _puzzle.PiecePlaced(this);
                 return true;
             }
 

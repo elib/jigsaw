@@ -7,13 +7,22 @@ using Microsoft.Xna.Framework;
 
 namespace Jigsaw
 {
-    class Puzzle : GameObjectGroup
+    public class Puzzle : GameObjectGroup
     {
-        public Puzzle() : base() { }
-
         private const double FLICKER_BOUNCE_TIME = 0.1;
         private Canvas _canvas;
         private TimeNotifier _flickerBounceNotifier = new TimeNotifier(FLICKER_BOUNCE_TIME);
+
+        private GameObjectGroup _completedPieces;
+        private GameObjectGroup _attachedPieces;
+
+        private int _numberOfPieces = 0;
+
+        public Puzzle(GameObjectGroup completedPieces, GameObjectGroup attachedPieces) : base()
+        {
+            _completedPieces = completedPieces;
+            _attachedPieces = attachedPieces;
+        }
 
         public void Create(string imageSource, int roughSize, Canvas canvas)
         {
@@ -29,6 +38,16 @@ namespace Jigsaw
 
             chopUp(roughSize, texture);
 
+            distributePieces();
+
+            //initialize with number of pieces -- to detect win condition
+            _numberOfPieces = Count;
+
+            _flickerBounceNotifier.NotifyMe();
+        }
+
+        private void distributePieces()
+        {
             //SHUFFLE ME
             this.shuffle();
 
@@ -48,8 +67,6 @@ namespace Jigsaw
                 bool leftSide = i++ < target;
                 PutPiece(obj, leftSide);
             }
-
-            _flickerBounceNotifier.NotifyMe();
         }
 
         private void PutPiece(Updatable obj, bool leftSide)
@@ -97,15 +114,27 @@ namespace Jigsaw
         {
             get
             {
-                return (this.Count == 0);
+                return (_completedPieces.Count == _numberOfPieces);
             }
         }
 
 
         internal void PiecePlaced(PuzzlePiece puzzlePiece)
         {
+            _attachedPieces.Remove(puzzlePiece);
+            _completedPieces.Add(puzzlePiece);
+        }
+
+        internal void PiecePicked(PuzzlePiece puzzlePiece)
+        {
             this.Remove(puzzlePiece);
-            ((PlayScene)Core.game.CurrentScene).completedPieces.Add(puzzlePiece);
+            _attachedPieces.Add(puzzlePiece);
+        }
+
+        internal void PieceReplaced(PuzzlePiece puzzlePiece)
+        {
+            _attachedPieces.Remove(puzzlePiece);
+            this.Add(puzzlePiece);
         }
 
         public override void Update(GameTime gameTime)
@@ -116,10 +145,10 @@ namespace Jigsaw
             {
                 _flickerBounceNotifier.NotifyMe();
 
-                if (Core.rand.NextDouble() < 0.1)
+                if (Core.rand.NextDouble() < 0.08)
                 {
                     int which = (int)(Core.rand.NextDouble() * Count);
-                    if (which <= Count)
+                    if (which < Count)
                     {
                         ((GameObject)this[which]).RandomBounce();
                     }
