@@ -42,16 +42,6 @@ namespace Jigsaw
 
             if (_puzzle == null)
             {
-                //attract mode
-
-                float radius = Math.Min(Core.game.Width, Core.game.Height) / 3;
-                double speed = 1 / 3.0;
-
-                double baseRadians = 2 * speed * Math.PI * Core.TotalTime;
-
-                //do silly animation
-                this._position.X = (Core.game.Width / 2) - (this._size.X / 2) + (float)(radius * Math.Cos(baseRadians) - radius * Math.Sin(baseRadians * 4) / 3 - radius * Math.Sin(baseRadians * 8) / 8);
-                this._position.Y = (Core.game.Height / 2) - (this._size.Y / 2) + (float)(radius * Math.Sin(baseRadians) - radius * Math.Cos(baseRadians * 4) / 3 + radius * Math.Cos(baseRadians * 8) / 8);
                 return;
             }
 
