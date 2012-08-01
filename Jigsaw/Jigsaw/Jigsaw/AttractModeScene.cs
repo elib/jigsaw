@@ -45,7 +45,7 @@ namespace Jigsaw
         {
             List<TrigItem> triglist = new List<TrigItem>();
 
-            int length = 3;//(int)(Core.rand.NextDouble() * 5 + 3);
+            int length = 4;//(int)(Core.rand.NextDouble() * 5 + 3);
             for (int i = 0; i < length; i++)
             {
                 TrigItem item = new TrigItem();
@@ -74,7 +74,7 @@ namespace Jigsaw
                 }
 
                 item.Period = 1 / baseSpeed;
-                baseSpeed /= ((int)(Core.rand.NextDouble() * 3.0 + 2));
+                baseSpeed /= 2;// ((int)(Core.rand.NextDouble() * 3.0 + 2));
                 item.Radius = baseRadius;
                 baseRadius /= (Core.rand.NextDouble() * 3.0 + 2);
                 //baseRadius *= 0.25;
