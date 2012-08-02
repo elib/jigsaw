@@ -125,6 +125,11 @@ namespace Jigsaw
             }
 
             updateMotion(gameTime);
+        }
+
+        public override void UpdateAnimation(GameTime gameTime)
+        {
+            base.UpdateAnimation(gameTime);
 
             if (_bounceTimer.StillGoing)
             {

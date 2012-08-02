@@ -25,6 +25,7 @@ namespace Jigsaw
         {
             canvas = new Canvas();
             canvas.Initialize(Core.game.Content);
+            canvas.setSize(100, 100);
             this.add(canvas);
 
             player1 = new Player(null);

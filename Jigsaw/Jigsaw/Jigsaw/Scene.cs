@@ -11,6 +11,8 @@ namespace Jigsaw
 
         private List<Updatable> _objects;
 
+        private bool _inputEnabled = true;
+
         public Scene()
         {
             _objects = new List<Updatable>();
@@ -28,9 +30,24 @@ namespace Jigsaw
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            if (_inputEnabled)
+            {
+                foreach (var obj in _objects)
+                {
+                    obj.Update(gameTime);
+                }
+            }
+
+            UpdateAnimation(gameTime);
+        }
+
+        public override void UpdateAnimation(GameTime gameTime)
+        {
+            base.UpdateAnimation(gameTime);
+
             foreach (var obj in _objects)
             {
-                obj.Update(gameTime);
+                obj.UpdateAnimation(gameTime);
             }
         }
 

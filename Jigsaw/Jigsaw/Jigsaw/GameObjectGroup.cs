@@ -30,6 +30,16 @@ namespace Jigsaw
             }
         }
 
+        public override void UpdateAnimation(GameTime gameTime)
+        {
+            base.UpdateAnimation(gameTime);
+
+            foreach (var obj in _objects)
+            {
+                obj.UpdateAnimation(gameTime);
+            }
+        }
+
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch, Microsoft.Xna.Framework.GameTime gameTime)
         {
             foreach (var obj in _objects)
