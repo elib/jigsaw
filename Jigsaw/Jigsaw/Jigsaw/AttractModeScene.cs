@@ -8,13 +8,17 @@ namespace Jigsaw
     class AttractModeScene : Scene
     {
         //public Puzzle puzzle;
-        public Player player;
+        public Player player1;
+        public Player player2;
         public Canvas canvas;
 
         private TimeNotifier refreshHarmonics = new TimeNotifier();
 
-        private List<TrigItem> trigSumX;
-        private List<TrigItem> trigSumY;
+        private List<TrigItem> trigSumX1;
+        private List<TrigItem> trigSumY1;
+
+        private List<TrigItem> trigSumX2;
+        private List<TrigItem> trigSumY2;
 
         public AttractModeScene()
             : base()
@@ -23,9 +27,14 @@ namespace Jigsaw
             canvas.Initialize(Core.game.Content);
             this.add(canvas);
 
-            player = new Player(null);
-            player.Initialize(Core.game.Content);
-            this.add(player);
+            player1 = new Player(null);
+            player1.Initialize(Core.game.Content);
+
+            player2 = new Player(null);
+            player2.Initialize(Core.game.Content);
+
+            this.add(player1);
+            this.add(player2);
 
             refreshTrigSums();
         }
@@ -35,8 +44,11 @@ namespace Jigsaw
             float radius = Math.Min(Core.game.Width, Core.game.Height) / 3;
             double speed = Core.rand.NextDouble() * 3 + 1;
 
-            trigSumX = MakeHarmonicSum(speed, radius, true);
-            trigSumY = MakeHarmonicSum(speed, radius, false);
+            trigSumX1 = MakeHarmonicSum(speed, radius, true);
+            trigSumY1 = MakeHarmonicSum(speed, radius, false);
+
+            trigSumX2 = MakeHarmonicSum(speed, radius, true);
+            trigSumY2 = MakeHarmonicSum(speed, radius, false);
 
             refreshHarmonics.NotifyMe(5.0 * speed);
         }
@@ -45,7 +57,7 @@ namespace Jigsaw
         {
             List<TrigItem> triglist = new List<TrigItem>();
 
-            int length = 4;//(int)(Core.rand.NextDouble() * 5 + 3);
+            int length = 4;
             for (int i = 0; i < length; i++)
             {
                 TrigItem item = new TrigItem();
@@ -74,10 +86,9 @@ namespace Jigsaw
                 }
 
                 item.Period = 1 / baseSpeed;
-                baseSpeed /= 2;// ((int)(Core.rand.NextDouble() * 3.0 + 2));
+                baseSpeed /= 2;
                 item.Radius = baseRadius;
                 baseRadius /= (Core.rand.NextDouble() * 3.0 + 2);
-                //baseRadius *= 0.25;
                 if (Core.rand.NextDouble() > 0.2)
                 {
                     //flip some of them
@@ -116,8 +127,11 @@ namespace Jigsaw
             double baseRadians = 2 * speed * Math.PI * Core.TotalTime;
 
             //do silly animation
-            player._position.X = (Core.game.Width / 2) - (player._size.X / 2) + evaluateTrigSum(trigSumX, Core.TotalTime);
-            player._position.Y = (Core.game.Height / 2) - (player._size.Y / 2) + evaluateTrigSum(trigSumY, Core.TotalTime);
+            player1._position.X = (Core.game.Width / 2) - (player1._size.X / 2) + evaluateTrigSum(trigSumX1, Core.TotalTime);
+            player1._position.Y = (Core.game.Height / 2) - (player1._size.Y / 2) + evaluateTrigSum(trigSumY1, Core.TotalTime);
+
+            player2._position.X = (Core.game.Width / 2) - (player2._size.X / 2) + evaluateTrigSum(trigSumX2, -Core.TotalTime);
+            player2._position.Y = (Core.game.Height / 2) - (player2._size.Y / 2) + evaluateTrigSum(trigSumY2, -Core.TotalTime);
         }
 
         private float evaluateTrigSum(List<TrigItem> trigSum, double totalTime)
