@@ -58,6 +58,8 @@ namespace Jigsaw
             graphics = new GraphicsDeviceManager(this);
             SetDimensions(false);
 
+            
+
             dynamicContentBuilder = new ContentBuilder();
             ServiceContainer services = new ServiceContainer();
             // Register the service, so components like ContentManager can find it.
@@ -107,7 +109,7 @@ namespace Jigsaw
 
             availablePuzzleImages = new List<string>();
 
-            DirectoryInfo d = Directory.CreateDirectory(@"D:\Projects\Games\Jigsaw\Assets\dynamic\");
+            DirectoryInfo d = Directory.CreateDirectory(@"D:\Projects\Games\Jigsaw\Assets\production\");
             foreach(var f in d.EnumerateFiles("*.jpg"))
             {
                 string name = f.Name;
@@ -119,8 +121,7 @@ namespace Jigsaw
 
             dynamicContentBuilder.Build();
 
-            CurrentScene = new PlayScene();
-            _nextScene = CurrentScene;
+            SetScene(new PlayScene());
         }
 
         /// <summary>
@@ -152,7 +153,11 @@ namespace Jigsaw
 
             InputManager.update();
 
-            CurrentScene.Update(gameTime);
+            if (CurrentScene != null)
+            {
+                CurrentScene.Update(gameTime);
+            }
+
 
             base.Update(gameTime);
         }
@@ -163,17 +168,19 @@ namespace Jigsaw
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
             Matrix scaleMatrix = Matrix.CreateScale(_zoomFactor);
-            // Draw the sprite.
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);
 
+            GraphicsDevice.Clear(Color.White);
+
+            // Draw the sprite.
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);
             //draw current scene
-            CurrentScene.Draw(spriteBatch, gameTime);
-            
+            if (CurrentScene != null)
+            {
+                CurrentScene.Draw(spriteBatch, gameTime);
+            }
             spriteBatch.End();
-            
+
             base.Draw(gameTime);
         }
 

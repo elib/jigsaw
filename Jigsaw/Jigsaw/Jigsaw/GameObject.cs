@@ -30,6 +30,16 @@ namespace Jigsaw
         private double _bounceAmount = MIN_BOUNCE_PERCENTAGE;
         private Vector2 _bounceScale = Vector2.One;
 
+        public float Alpha { get; set; }
+        public byte AlphaByte
+        {
+            get
+            {
+                byte b = (byte)(255 * Alpha);
+                return b;
+            }
+        }
+
         public GameObject()
         {
             _position = Vector2.Zero;
@@ -39,6 +49,8 @@ namespace Jigsaw
             _drag = Vector2.Zero;
             _maxVelocity = Vector2.Zero;
             _texture = null;
+
+            Alpha = 1;
 
             _animation = new AnimationInfo();
         }
@@ -90,7 +102,9 @@ namespace Jigsaw
             }
             //Rectangle r_dest = new Rectangle(10, 10, 64, 64);//_position.X, _position.Y, _size.X, _size.Y);
 
-            batch.Draw(_texture, DestinationRect, GetAnimationFrame(), Color.White);
+            Color tint = Color.White;
+            tint.A = this.AlphaByte;
+            batch.Draw(_texture, DestinationRect, GetAnimationFrame(), tint, 0, Vector2.Zero, SpriteEffects.None, 0);
         }
 
         private Rectangle? GetAnimationFrame()

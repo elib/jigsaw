@@ -117,6 +117,7 @@
     <Compile Include="Core.cs" />
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FadingLayer.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectGroup.cs" />
     <Compile Include="InputManager.cs" />
