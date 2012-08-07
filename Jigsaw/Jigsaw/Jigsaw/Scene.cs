@@ -16,8 +16,26 @@ namespace Jigsaw
 
         private FadingLayer fadeInLayer;
         private FadingLayer fadeOutLayer;
+        private TimeNotifier _hangNotifier = new TimeNotifier();
 
         public double HangTime { get; set; }
+
+        private Scene _nextScene = null;
+
+        public bool IsTransitioning
+        {
+            get
+            {
+                return !fadeInLayer.HasCompleted || (fadeOutLayer.HasStarted && !fadeOutLayer.HasCompleted)
+                        || _hangNotifier.StillGoing;
+            }
+        }
+
+        public void GoToNextScene(Scene nextScene)
+        {
+            _nextScene = nextScene;
+            _hangNotifier.NotifyMe(HangTime, true);
+        }
 
         public Scene(double fadeInTime = 0, double fadeOutTime = 0, double hangTime = 0)
         {
@@ -29,6 +47,7 @@ namespace Jigsaw
             fadeInLayer.Start();
 
             fadeOutLayer = new FadingLayer(false, fadeOutTime);
+            fadeOutLayer.Initialize(Core.game.Content);
         }
 
         public void empty()
@@ -43,13 +62,23 @@ namespace Jigsaw
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            if (!fadeInLayer.HasCompleted || (fadeOutLayer.HasStarted && !fadeOutLayer.HasCompleted))
+            if (IsTransitioning)
             {
                 _inputEnabled = false;
             }
             else
             {
                 _inputEnabled = true;
+            }
+
+            if (_hangNotifier.Notify)
+            {
+                fadeOutLayer.Start();
+            }
+
+            if (fadeOutLayer.HasCompleted)
+            {
+                Core.game.SetScene(_nextScene);
             }
 
             if (_inputEnabled)
@@ -73,6 +102,7 @@ namespace Jigsaw
             }
 
             fadeInLayer.UpdateAnimation(gameTime);
+            fadeOutLayer.UpdateAnimation(gameTime);
         }
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch, Microsoft.Xna.Framework.GameTime gameTime)
@@ -83,6 +113,7 @@ namespace Jigsaw
             }
 
             fadeInLayer.Draw(batch, gameTime);
+            fadeOutLayer.Draw(batch, gameTime);
         }
     }
 }

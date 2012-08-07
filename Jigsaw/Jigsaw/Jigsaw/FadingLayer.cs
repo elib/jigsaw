@@ -56,13 +56,19 @@ namespace Jigsaw
 
         public void Start()
         {
+
+            HasStarted = true;
+
             if (_fadeTime > 0)
             {
                 _fadeTimer.NotifyMe(_fadeTime, true);
+                HasCompleted = false;
             }
-
-            HasStarted = true;
-            HasCompleted = false;
+            else
+            {
+                HasCompleted = true;
+                Alpha = 0;
+            }
         }
 
         public override void UpdateAnimation(Microsoft.Xna.Framework.GameTime gameTime)
@@ -74,7 +80,8 @@ namespace Jigsaw
                 return;
             }
 
-            double newAlpha = _fadeTimer.TimerFraction; //calculate curve here
+            double newAlpha = easeCurve(_fadeTimer.TimerFraction); //calculate curve here
+            //Console.WriteLine("In: {0}, out: {1}", _fadeTimer.TimerFraction, newAlpha);
             if(_fadeTimer.Notify)
             {
                 HasCompleted = true;
@@ -87,6 +94,18 @@ namespace Jigsaw
             }
 
             this.Alpha = (float)newAlpha;
+        }
+
+        private static double easeCurve(double t)
+        {
+            if (t < 0) return 0;
+            if (t > 1) return 1;
+
+            t *= 2;
+            if (t < 1) return t * t * t / 2;
+
+            t -= 2;
+            return (t * t * t + 2) / 2;
         }
     }
 }

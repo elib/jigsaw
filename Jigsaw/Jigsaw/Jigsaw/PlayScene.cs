@@ -47,6 +47,12 @@ namespace Jigsaw
         {
             base.Update(gameTime);
 
+            if (IsTransitioning)
+            {
+                idleTimer.NotifyMe(true); //keep pushing idle timer ahead
+                return;
+            }
+
             if (InputManager.justPressedKeys.Count > 0)
             {
                 idleTimer.NotifyMe(true); //force reset if any key pressed
@@ -55,6 +61,7 @@ namespace Jigsaw
             {
                 if (idleTimer.Notify)
                 {
+                    //this.GoToNextScene(new AttractModeScene());
                     Core.game.SetScene(new AttractModeScene());
                     return;
                 }
@@ -63,7 +70,7 @@ namespace Jigsaw
             if (puzzle.IsComplete)
             {
                 //woo hoo, time to move on
-                Core.game.SetScene(new PlayScene());
+                this.GoToNextScene(new PlayScene());
             }
         }
     }
