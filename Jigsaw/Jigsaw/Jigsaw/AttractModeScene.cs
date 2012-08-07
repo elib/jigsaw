@@ -28,10 +28,10 @@ namespace Jigsaw
             canvas.setSize(100, 100);
             this.add(canvas);
 
-            player1 = new Player(null);
+            player1 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.One);
             player1.Initialize(Core.game.Content);
 
-            player2 = new Player(null);
+            player2 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.Two);
             player2.Initialize(Core.game.Content);
 
             this.add(player1);

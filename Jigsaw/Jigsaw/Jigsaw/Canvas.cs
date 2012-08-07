@@ -14,6 +14,7 @@ namespace Jigsaw
             return content.Load<Texture2D>("canvas_frame");
         }
 
+        //width of the surrounding border
         private const float _percentage = 9.0f / 64.0f;
 
         internal void setSize(int width, int height)

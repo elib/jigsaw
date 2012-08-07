@@ -17,18 +17,38 @@ namespace Jigsaw
 
         private Puzzle _puzzle;
 
-        public Player(Puzzle puzzle)
+        private PlayerIndex _playerIndex;
+
+        public Player(Puzzle puzzle, PlayerIndex playerIndex)
             : base()
         {
+            _playerIndex = playerIndex;
+
             _maxVelocity.X = _maxVelocity.Y = 100;
             _drag.X = _drag.Y = 250;
             _size.X = _size.Y = 32;
+
+            spawnLocation();
 
             _puzzle = puzzle;
 
             _animation.Add("idle", new int[] { 0 }, 1);
             _animation.Add("flicker", new int[] { 0, 1 }, 10);
             Play("idle");
+        }
+
+        private void spawnLocation()
+        {
+            _position.Y = Core.game.Height / 2 - this._size.Y / 2;
+
+            if (_playerIndex == PlayerIndex.One)
+            {
+                _position.X = Core.game.Width / 4.0f - this._size.X / 2;
+            }
+            else
+            {
+                _position.X = 3.0f * Core.game.Width / 4.0f - this._size.X / 2.0f;
+            }
         }
 
         public override Texture2D SetTexture(ContentManager content)
