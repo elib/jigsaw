@@ -67,20 +67,20 @@ namespace Jigsaw
 
             Vector2 dir = Vector2.Zero;
 
-            if (Keyboard.GetState(0).IsKeyDown(Keys.Right))
+            if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Right))
             {
                 dir.X = 1;
             }
-            else if (Keyboard.GetState(0).IsKeyDown(Keys.Left))
+            else if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Left))
             {
                 dir.X = -1;
             }
 
-            if (Keyboard.GetState(0).IsKeyDown(Keys.Down))
+            if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Down))
             {
                 dir.Y = 1;
             }
-            else if (Keyboard.GetState(0).IsKeyDown(Keys.Up))
+            else if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Up))
             {
                 dir.Y = -1;
             }

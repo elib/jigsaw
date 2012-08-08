@@ -36,10 +36,6 @@ namespace Jigsaw
             get
             {
                 byte b = (byte)(255 * Alpha);
-                if (b < 255)
-                {
-                    Console.WriteLine(b);
-                }
                 return b;
             }
         }
