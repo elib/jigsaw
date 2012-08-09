@@ -28,13 +28,13 @@ namespace Jigsaw
         {
             //load info
             Texture2D texture = Core.game.dynamicContentManager.Load<Texture2D>(imageSource);
-            if (roughSize > texture.Width || roughSize > texture.Height)
-            {
-                throw new Exception("Rough size requested is too large for this image.");
-            }
+            //if (roughSize > texture.Width || roughSize > texture.Height)
+            //{
+            //    throw new Exception("Rough size requested is too large for this image.");
+            //}
 
             _canvas = canvas;
-            _canvas.setSize(texture.Width, texture.Height);
+            _canvas.setSize((int)(texture.Width * PuzzlePiece.SCALE_FACTOR), (int) (texture.Height * PuzzlePiece.SCALE_FACTOR));
 
             chopUp(roughSize, texture);
 
@@ -75,17 +75,17 @@ namespace Jigsaw
 
             GameObject gobj = (GameObject)obj;
 
-            int leftSpace = (int) ((Core.game.Width - _canvas._size.X - margin*4 - gobj._size.X*2) / 2);
+            int leftSpace = 0;// (int) ((Core.game.Width - _canvas.Size.X - margin*4 - gobj.Size.X*2) / 2);
 
             int left = margin;
             if(!leftSide)
             {
-                left = (int) (_canvas._position.X + _canvas._size.X + margin);
+                left = (int) (_canvas._position.X + _canvas.Size.X + margin);
             }
 
             gobj._position.X = (int)(left + leftSpace * Core.rand.NextDouble());
 
-            int top = margin + (int)(Core.rand.NextDouble() * (Core.game.Height - margin * 2 - (int)gobj._size.Y));
+            int top = margin + (int)(Core.rand.NextDouble() * (Core.game.Height - margin * 2 - (int)gobj.Size.Y));
             gobj._position.Y = top;
         }
 
@@ -97,6 +97,8 @@ namespace Jigsaw
             int actualX = texture.Width / timesX;
             int actualY = texture.Height / timesY;
 
+            if (actualX % 2 == 1) actualX--;
+            if (actualY % 2 == 1) actualY--;
 
             //now slice it up
             for (int x = 0; x < timesX; x++)

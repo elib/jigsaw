@@ -128,11 +128,11 @@ namespace Jigsaw
             double baseRadians = 2 * speed * Math.PI * Core.TotalTime;
 
             //do silly animation
-            player1._position.X = (Core.game.Width / 2) - (player1._size.X / 2) + evaluateTrigSum(trigSumX1, Core.TotalTime);
-            player1._position.Y = (Core.game.Height / 2) - (player1._size.Y / 2) + evaluateTrigSum(trigSumY1, Core.TotalTime);
+            player1._position.X = (Core.game.Width / 2) - (player1.Size.X / 2) + evaluateTrigSum(trigSumX1, Core.TotalTime);
+            player1._position.Y = (Core.game.Height / 2) - (player1.Size.Y / 2) + evaluateTrigSum(trigSumY1, Core.TotalTime);
 
-            player2._position.X = (Core.game.Width / 2) - (player2._size.X / 2) + evaluateTrigSum(trigSumX2, -Core.TotalTime);
-            player2._position.Y = (Core.game.Height / 2) - (player2._size.Y / 2) + evaluateTrigSum(trigSumY2, -Core.TotalTime);
+            player2._position.X = (Core.game.Width / 2) - (player2.Size.X / 2) + evaluateTrigSum(trigSumX2, -Core.TotalTime);
+            player2._position.Y = (Core.game.Height / 2) - (player2.Size.Y / 2) + evaluateTrigSum(trigSumY2, -Core.TotalTime);
         }
 
         private float evaluateTrigSum(List<TrigItem> trigSum, double totalTime)

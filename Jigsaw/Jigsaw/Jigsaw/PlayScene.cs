@@ -31,7 +31,7 @@ namespace Jigsaw
             completedPieces = new GameObjectGroup();
             carriedPieces = new GameObjectGroup();
             puzzle = new Puzzle(completedPieces, carriedPieces);
-            puzzle.Create(puzzleImage, 120, canvas);
+            puzzle.Create(puzzleImage, 250, canvas);
 
             
             this.add(completedPieces);
@@ -44,7 +44,7 @@ namespace Jigsaw
 
             player2 = new Player(puzzle, PlayerIndex.Two);
             player2.Initialize(Core.game.Content);
-            this.add(player2);
+        //    this.add(player2);
 
             idleTimer.NotifyMe();
         }

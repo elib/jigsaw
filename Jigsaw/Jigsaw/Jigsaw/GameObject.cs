@@ -15,7 +15,18 @@ namespace Jigsaw
         private bool _initialized = false;
         public Vector2 _position;
 
-        public Vector2 _size;
+        public float ScaleFactor
+        {
+            get;
+            protected set;
+        }
+
+        protected Vector2 _size;
+        public Vector2 Size
+        {
+            get { return _size * ScaleFactor; }
+
+        }
 
         public Vector2 _velocity, _acceleration, _drag, _maxVelocity;
 
@@ -50,6 +61,8 @@ namespace Jigsaw
             _maxVelocity = Vector2.Zero;
             _texture = null;
 
+            ScaleFactor = 1;
+
             Alpha = 1;
 
             _animation = new AnimationInfo();
@@ -60,10 +73,10 @@ namespace Jigsaw
             get
             {
                 return new Rectangle(
-                                (int)(_position.X - (_size.X * (1.0 - _bounceScale.X) / 2)),
-                                (int)(_position.Y - (_size.Y * (1.0 - _bounceScale.Y) / 2)),
-                                (int)(_size.X * _bounceScale.X),
-                                (int)(_size.Y * _bounceScale.Y));
+                                (int)(_position.X - (_size.X * ScaleFactor * (1.0 - _bounceScale.X) / 2)),
+                                (int)(_position.Y - (_size.Y * ScaleFactor * (1.0 - _bounceScale.Y) / 2)),
+                                (int)(_size.X * _bounceScale.X * ScaleFactor),
+                                (int)(_size.Y * _bounceScale.Y * ScaleFactor));
             }
         }
 

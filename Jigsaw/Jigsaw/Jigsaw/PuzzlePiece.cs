@@ -14,6 +14,7 @@ namespace Jigsaw
         Vector2 _destinationOffset;
 
         private const int MARGIN_FACTOR = 3;
+        public const float SCALE_FACTOR = 1 / 2.0f;
 
         protected Rectangle? GetTextureCoords()
         {
@@ -26,13 +27,15 @@ namespace Jigsaw
             {
                 Rectangle rect = DestinationRect;
                 rect.Offset(new Point((int) -_destinationOffset.X, (int) - _destinationOffset.Y));
-                rect.Inflate(-rect.Width / MARGIN_FACTOR, -rect.Height / MARGIN_FACTOR);
+                //rect.Inflate(-rect.Width / MARGIN_FACTOR, -rect.Height / MARGIN_FACTOR);
                 return rect;
             }
         }
 
         public PuzzlePiece(Texture2D texture, Rectangle pieceCoordinates, Puzzle parentPuzzle, Vector2 destinationOffset) : base(texture)
         {
+            ScaleFactor = SCALE_FACTOR;
+
             _coords = pieceCoordinates;
             _puzzle = parentPuzzle;
             _destinationOffset = destinationOffset;
@@ -44,13 +47,17 @@ namespace Jigsaw
         public bool TrySnap()
         {
             Rectangle insetCoords = _coords;
-            insetCoords.Inflate(-_coords.Width / MARGIN_FACTOR, -_coords.Height / MARGIN_FACTOR);
+            insetCoords.Width = (int)(_coords.Width * ScaleFactor);
+            insetCoords.Height = (int)(_coords.Height * ScaleFactor);
+            //insetCoords.Inflate(-_coords.Width / (MARGIN_FACTOR), -_coords.Height / (MARGIN_FACTOR));
+            insetCoords.Offset(new Point(-_coords.X / 2, -_coords.Y / 2));
+
 
             //if this piece is in a good spot, snap it properly and gogogogo
             if (insetCoords.Intersects(OffsetDestinationRect))
             {
-                _position.X = _destinationOffset.X + _coords.X;
-                _position.Y = _destinationOffset.Y + _coords.Y;
+                _position.X = _destinationOffset.X + _coords.X * ScaleFactor;
+                _position.Y = _destinationOffset.Y + _coords.Y * ScaleFactor;
 
                 return true;
             }
