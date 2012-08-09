@@ -27,7 +27,7 @@ namespace Jigsaw
             {
                 Rectangle rect = DestinationRect;
                 rect.Offset(new Point((int) -_destinationOffset.X, (int) - _destinationOffset.Y));
-                //rect.Inflate(-rect.Width / MARGIN_FACTOR, -rect.Height / MARGIN_FACTOR);
+                rect.Inflate(-rect.Width / MARGIN_FACTOR, -rect.Height / MARGIN_FACTOR);
                 return rect;
             }
         }
@@ -49,8 +49,8 @@ namespace Jigsaw
             Rectangle insetCoords = _coords;
             insetCoords.Width = (int)(_coords.Width * ScaleFactor);
             insetCoords.Height = (int)(_coords.Height * ScaleFactor);
-            //insetCoords.Inflate(-_coords.Width / (MARGIN_FACTOR), -_coords.Height / (MARGIN_FACTOR));
             insetCoords.Offset(new Point(-_coords.X / 2, -_coords.Y / 2));
+            insetCoords.Inflate(-insetCoords.Width / (MARGIN_FACTOR), -insetCoords.Height / (MARGIN_FACTOR));
 
 
             //if this piece is in a good spot, snap it properly and gogogogo
