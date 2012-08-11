@@ -139,9 +139,9 @@ namespace Jigsaw
             this.Add(puzzlePiece);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
-            base.Update(gameTime);
+            base.Update();
 
             if (_flickerBounceNotifier.Notify)
             {

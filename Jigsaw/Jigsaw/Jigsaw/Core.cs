@@ -15,10 +15,12 @@ namespace Jigsaw
         public static Random rand = new Random();
 
         public static double TotalTime { get; private set; }
+        public static GameTime CurrentGameTime { get; private set; }
 
         public static void Update(GameTime gameTime)
         {
             TotalTime = gameTime.TotalGameTime.TotalSeconds;
+            CurrentGameTime = gameTime;
         }
 
         private static string lastChosen = null;

@@ -7,17 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Jigsaw
 {
-    public class Scene : Updatable
+    public class Scene : GameObjectGroup
     {
-
-        private List<Updatable> _objects;
-
         private bool _inputEnabled = true;
 
         private FadingLayer fadeInLayer;
         private FadingLayer fadeOutLayer;
+        
         private TimeNotifier _hangNotifier = new TimeNotifier();
-
         public double HangTime { get; set; }
 
         private Scene _nextScene = null;
@@ -27,7 +24,7 @@ namespace Jigsaw
             get
             {
                 return !fadeInLayer.HasCompleted || (fadeOutLayer.HasStarted && !fadeOutLayer.HasCompleted)
-                        || _hangNotifier.StillGoing;
+                        || _hangNotifier.Initialized;
             }
         }
 
@@ -37,30 +34,23 @@ namespace Jigsaw
             _hangNotifier.NotifyMe(HangTime, true);
         }
 
-        public Scene(double fadeInTime = 0, double fadeOutTime = 0, double hangTime = 0)
+        public void InitScene()
         {
-            _objects = new List<Updatable>();
+            fadeInLayer.Start();
+        }
+
+        public Scene(double fadeInTime = 0, double fadeOutTime = 0, double hangTime = 0) : base()
+        {
             HangTime = hangTime;
 
             fadeInLayer = new FadingLayer(true, fadeInTime);
             fadeInLayer.Initialize(Core.game.Content);
-            fadeInLayer.Start();
 
             fadeOutLayer = new FadingLayer(false, fadeOutTime);
             fadeOutLayer.Initialize(Core.game.Content);
         }
 
-        public void empty()
-        {
-            _objects.Clear();
-        }
-
-        public void add(Updatable newobj)
-        {
-            _objects.Add(newobj);
-        }
-
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Update()
         {
             if (IsTransitioning)
             {
@@ -83,37 +73,27 @@ namespace Jigsaw
 
             if (_inputEnabled)
             {
-                foreach (var obj in _objects)
-                {
-                    obj.Update(gameTime);
-                }
+                //only now update everything according to base class
+                base.Update();
             }
 
-            UpdateAnimation(gameTime);
+            UpdateAnimation();
         }
 
-        public override void UpdateAnimation(GameTime gameTime)
+        public override void UpdateAnimation()
         {
-            base.UpdateAnimation(gameTime);
+            base.UpdateAnimation();
 
-            foreach (var obj in _objects)
-            {
-                obj.UpdateAnimation(gameTime);
-            }
-
-            fadeInLayer.UpdateAnimation(gameTime);
-            fadeOutLayer.UpdateAnimation(gameTime);
+            fadeInLayer.UpdateAnimation();
+            fadeOutLayer.UpdateAnimation();
         }
 
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch, Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Draw(SpriteBatch batch, bool drawParticles)
         {
-            foreach (var obj in _objects)
-            {
-                obj.Draw(batch, gameTime);
-            }
+            base.Draw(batch, drawParticles);
 
-            fadeInLayer.Draw(batch, gameTime);
-            fadeOutLayer.Draw(batch, gameTime);
+            fadeInLayer.Draw(batch, drawParticles);
+            fadeOutLayer.Draw(batch, drawParticles);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Jigsaw
 {
@@ -37,9 +38,9 @@ namespace Jigsaw
 
         public int CurrentFrameNumber { get; private set; }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Update()
         {
-            double totalElapsedSeconds = gameTime.TotalGameTime.TotalSeconds;
+            double totalElapsedSeconds = Core.CurrentGameTime.TotalGameTime.TotalSeconds;
             if (totalElapsedSeconds >= nextFrameChange)
             {
                 SetNextFrameChange(totalElapsedSeconds);
@@ -47,7 +48,7 @@ namespace Jigsaw
             }
         }
 
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch, Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Draw(SpriteBatch batch, bool drawParticles)
         {
             throw new NotImplementedException("You cannot render an frame sequence. You must use a sprite.");
         }
@@ -86,15 +87,15 @@ namespace Jigsaw
             _animationList[name] = seq;
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Update()
         {
             if (CurrentAnimation != null)
             {
-                CurrentAnimation.Update(gameTime);
+                CurrentAnimation.Update();
             }
         }
 
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch, Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Draw(SpriteBatch batch, bool drawParticles)
         {
             throw new NotImplementedException("You cannot render an animation. You must use a sprite.");
         }

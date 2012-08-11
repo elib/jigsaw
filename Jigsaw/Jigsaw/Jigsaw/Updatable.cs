@@ -9,8 +9,8 @@ namespace Jigsaw
 {
     public abstract class Updatable
     {
-        public abstract void Update(GameTime gameTime);
-        public virtual void UpdateAnimation(GameTime gameTime) { }
-        public abstract void Draw(SpriteBatch batch, GameTime gameTime);
+        public abstract void Update();
+        public virtual void UpdateAnimation() { }
+        public abstract void Draw(SpriteBatch batch, bool drawParticles);
     }
 }

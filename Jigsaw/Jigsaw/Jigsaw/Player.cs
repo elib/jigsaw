@@ -61,9 +61,9 @@ namespace Jigsaw
             return content.Load<Texture2D>("player");
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
-            base.Update(gameTime);
+            base.Update();
 
             if (_puzzle == null)
             {
@@ -104,7 +104,7 @@ namespace Jigsaw
             }
             else
             {
-                _acceleration.X = (float)(dir.X * ACCEL_RATE * gameTime.TotalGameTime.TotalSeconds);
+                _acceleration.X = (float)(dir.X * ACCEL_RATE * Core.TotalTime);
             }
 
             //Y
@@ -114,7 +114,7 @@ namespace Jigsaw
             }
             else
             {
-                _acceleration.Y = (float)(dir.Y * ACCEL_RATE * gameTime.TotalGameTime.TotalSeconds);
+                _acceleration.Y = (float)(dir.Y * ACCEL_RATE * Core.TotalTime);
             }
 
             if (attachedPiece != null)

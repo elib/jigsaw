@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Jigsaw
 {
@@ -22,29 +23,29 @@ namespace Jigsaw
             _objects.Shuffle();
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Update()
         {
             foreach (var obj in _objects)
             {
-                obj.Update(gameTime);
+                obj.Update();
             }
         }
 
-        public override void UpdateAnimation(GameTime gameTime)
+        public override void UpdateAnimation()
         {
-            base.UpdateAnimation(gameTime);
+            base.UpdateAnimation();
 
             foreach (var obj in _objects)
             {
-                obj.UpdateAnimation(gameTime);
+                obj.UpdateAnimation();
             }
         }
 
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch, Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Draw(SpriteBatch batch, bool drawParticles)
         {
             foreach (var obj in _objects)
             {
-                obj.Draw(batch, gameTime);
+                obj.Draw(batch, drawParticles);
             }
         }
 

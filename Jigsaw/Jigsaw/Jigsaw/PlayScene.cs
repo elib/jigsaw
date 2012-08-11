@@ -26,7 +26,7 @@ namespace Jigsaw
 
             canvas = new Canvas();
             canvas.Initialize(Core.game.Content);
-            this.add(canvas);
+            this.Add(canvas);
 
             completedPieces = new GameObjectGroup();
             carriedPieces = new GameObjectGroup();
@@ -34,13 +34,13 @@ namespace Jigsaw
             puzzle.Create(puzzleImage, 250, canvas);
 
             
-            this.add(completedPieces);
-            this.add(puzzle);
-            this.add(carriedPieces);
+            this.Add(completedPieces);
+            this.Add(puzzle);
+            this.Add(carriedPieces);
 
             player1 = new Player(puzzle, PlayerIndex.One);
             player1.Initialize(Core.game.Content);
-            this.add(player1);
+            this.Add(player1);
 
             player2 = new Player(puzzle, PlayerIndex.Two);
             player2.Initialize(Core.game.Content);
@@ -49,9 +49,9 @@ namespace Jigsaw
             idleTimer.NotifyMe();
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
-            base.Update(gameTime);
+            base.Update();
 
             if (IsTransitioning)
             {

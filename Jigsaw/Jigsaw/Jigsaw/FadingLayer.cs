@@ -71,9 +71,9 @@ namespace Jigsaw
             }
         }
 
-        public override void UpdateAnimation(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void UpdateAnimation()
         {
-            base.UpdateAnimation(gameTime);
+            base.UpdateAnimation();
 
             if (HasCompleted)
             {

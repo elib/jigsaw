@@ -26,7 +26,7 @@ namespace Jigsaw
             canvas = new Canvas();
             canvas.Initialize(Core.game.Content);
             canvas.setSize(100, 100);
-            this.add(canvas);
+            this.Add(canvas);
 
             player1 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.One);
             player1.Initialize(Core.game.Content);
@@ -34,8 +34,8 @@ namespace Jigsaw
             player2 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.Two);
             player2.Initialize(Core.game.Content);
 
-            this.add(player1);
-            this.add(player2);
+            this.Add(player1);
+            this.Add(player2);
 
             refreshTrigSums();
         }
@@ -102,9 +102,9 @@ namespace Jigsaw
             return triglist;
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Update()
         {
-            base.Update(gameTime);
+            base.Update();
 
             if (InputManager.justPressedKeys.Count > 0)
             {

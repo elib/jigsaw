@@ -49,9 +49,9 @@ namespace Jigsaw
             _isEmitting = false;
         }
 
-        public override void UpdateAnimation(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void UpdateAnimation()
         {
-            base.UpdateAnimation(gameTime);
+            base.UpdateAnimation();
 
             if (Count > 0)
             {

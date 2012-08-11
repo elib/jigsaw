@@ -65,12 +65,12 @@ namespace Jigsaw
             return false;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
-            base.Update(gameTime);
+            base.Update();
         }
 
-        public override void Draw(SpriteBatch batch, GameTime gameTime)
+        public override void Draw(SpriteBatch batch, bool drawParticles)
         {
             batch.Draw(_texture, DestinationRect, GetTextureCoords(), Color.White);
         }

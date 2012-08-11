@@ -162,6 +162,7 @@ namespace Jigsaw
             if (_nextScene != CurrentScene)
             {
                 CurrentScene = _nextScene;
+                CurrentScene.InitScene();
             }
 
             // Allows the game to exit
@@ -172,7 +173,7 @@ namespace Jigsaw
 
             if (CurrentScene != null)
             {
-                CurrentScene.Update(gameTime);
+                CurrentScene.Update();
             }
 
 
@@ -210,7 +211,8 @@ namespace Jigsaw
             //draw current scene
             if (CurrentScene != null)
             {
-                CurrentScene.Draw(spriteBatch, gameTime);
+                CurrentScene.Draw(spriteBatch, false);
+                //CurrentScene.Draw(spriteBatch, true);
             }
             spriteBatch.End();
 

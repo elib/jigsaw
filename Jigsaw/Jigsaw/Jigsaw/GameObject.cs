@@ -112,7 +112,7 @@ namespace Jigsaw
         /// </summary>
         /// <param name="batch"></param>
         /// <param name="gameTime"></param>
-        public override void Draw(SpriteBatch batch, GameTime gameTime)
+        public override void Draw(SpriteBatch batch, bool drawParticles)
         {
             if (!_initialized)
             {
@@ -149,19 +149,19 @@ namespace Jigsaw
         /// Override me -- AND CALL ME AFTER
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
             if (!_initialized)
             {
                 throw new Exception("Not yet initialized!");
             }
 
-            updateMotion(gameTime);
+            updateMotion();
         }
 
-        public override void UpdateAnimation(GameTime gameTime)
+        public override void UpdateAnimation()
         {
-            base.UpdateAnimation(gameTime);
+            base.UpdateAnimation();
 
             if (_bounceTimer.StillGoing)
             {
@@ -172,7 +172,7 @@ namespace Jigsaw
                 _bounceScale = Vector2.One;
             }
 
-            _animation.Update(gameTime);
+            _animation.Update();
         }
 
         private void setBounce(double percentage)
@@ -225,8 +225,9 @@ namespace Jigsaw
           * Useful for cases when you need to update this but are buried down in too many supers.
           * Does a slightly fancier-than-normal integration to help with higher fidelity framerate-independenct motion.
           */
-        protected void updateMotion(GameTime gameTime)
+        protected void updateMotion()
         {
+            GameTime gameTime = Core.CurrentGameTime;
             float delta, velocityDelta;
 
             ////wait with angular ...
