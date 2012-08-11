@@ -33,7 +33,7 @@ namespace Jigsaw
         }
 
         public PuzzlePiece(Texture2D texture, Rectangle pieceCoordinates, Puzzle parentPuzzle, Vector2 destinationOffset) 
-            : base(texture, 1, 30, 30)
+            : base(texture, 100, 2, 20)
         {
             ScaleFactor = SCALE_FACTOR;
 

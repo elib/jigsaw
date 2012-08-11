@@ -72,7 +72,11 @@ namespace Jigsaw
                     {
                         Particle p = new T();
                         p.Initialize(Core.game.Content);
-                        p._position = this._position;
+                        double ang = Core.rand.NextDouble() * 2 * Math.PI;
+                        Vector2 randDir = new Vector2((float)Math.Sin(ang), (float)Math.Cos(ang));
+                        randDir.Normalize();
+                        p._position = randDir * 30 + _position;
+                        p._velocity = randDir * 100;
                         p.TTL = this.TTL;
                         this.Add(p);
                     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Jigsaw
 {
@@ -12,6 +13,8 @@ namespace Jigsaw
             : base()
         {
             _size.X = _size.Y = 5;
+            _maxVelocity = Vector2.One * 300;
+            _drag = Vector2.One * 45;
 
         }
 
@@ -24,8 +27,9 @@ namespace Jigsaw
         {
             base.initializeAnimation();
 
-            this._animation.Add("sparkle", new int[] { 0, 1 }, 1);
+            this._animation.Add("sparkle", new int[] { 0, 1 }, 15);
             this.Play("sparkle");
+            this._animation.RandomFrame();
         }
     }
 }

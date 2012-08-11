@@ -33,6 +33,9 @@ namespace Jigsaw
             base.UpdateAnimation();
 
             _emitter._position = _position + (Size / 2);
+            
+            //I KNOW IT SUCKS
+            _emitter.Update();
 
             _emitter.UpdateAnimation();
         }

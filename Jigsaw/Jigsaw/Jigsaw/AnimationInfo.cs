@@ -31,9 +31,16 @@ namespace Jigsaw
             SetNextFrameChange(0);
         }
 
-        public void ResetFrames()
+        public void ResetFrames(bool isRandom = false)
         {
-            CurrentFrameNumber = 0;
+            if (isRandom)
+            {
+                CurrentFrameNumber = (int)(Core.rand.NextDouble() * sequence.Count);
+            }
+            else
+            {
+                CurrentFrameNumber = 0;
+            }
         }
 
         public int CurrentFrameNumber { get; private set; }
@@ -98,6 +105,14 @@ namespace Jigsaw
         public override void Draw(SpriteBatch batch, bool drawParticles)
         {
             throw new NotImplementedException("You cannot render an animation. You must use a sprite.");
+        }
+
+        internal void RandomFrame()
+        {
+            if (CurrentAnimation != null)
+            {
+                CurrentAnimation.ResetFrames(true);
+            }
         }
     }
 }
