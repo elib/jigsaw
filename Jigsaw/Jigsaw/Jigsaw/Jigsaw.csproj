@@ -117,6 +117,7 @@
     <Compile Include="Canvas.cs" />
     <Compile Include="ContentBuilder.cs" />
     <Compile Include="Core.cs" />
+    <Compile Include="EmittingGameObject.cs" />
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FadingLayer.cs" />

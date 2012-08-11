@@ -12,5 +12,6 @@ namespace Jigsaw
         public abstract void Update();
         public virtual void UpdateAnimation() { }
         public abstract void Draw(SpriteBatch batch, bool drawParticles);
+        public virtual bool ShouldDrawForParticles { get { return false; } }
     }
 }

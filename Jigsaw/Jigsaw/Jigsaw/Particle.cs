@@ -11,7 +11,7 @@ namespace Jigsaw
         {
             get
             {
-                return _createdTime + TTL > Core.TotalTime;
+                return ((_createdTime + TTL) > Core.TotalTime);
             }
         }
 
@@ -24,6 +24,14 @@ namespace Jigsaw
             base.initializeAnimation();
 
             _createdTime = Core.TotalTime;
+        }
+
+        public override bool ShouldDrawForParticles
+        {
+            get
+            {
+                return true;
+            }
         }
     }
 }

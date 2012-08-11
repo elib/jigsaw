@@ -73,6 +73,7 @@ namespace Jigsaw
                         Particle p = new T();
                         p.Initialize(Core.game.Content);
                         p._position = this._position;
+                        p.TTL = this.TTL;
                         this.Add(p);
                     }
                     _spawnNextParticleTimer.NotifyMe(1 / SpawnRate, true);

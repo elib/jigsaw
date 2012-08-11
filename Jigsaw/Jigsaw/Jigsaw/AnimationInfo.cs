@@ -9,7 +9,7 @@ namespace Jigsaw
     public class FrameSequence : Updatable
     {
         private List<int> sequence;
-        private float frameRate;
+        private double frameRate;
         private double nextFrameChange = 0;
 
         private void SetNextFrameChange(double currentTime)
@@ -24,7 +24,7 @@ namespace Jigsaw
             SetNextFrameChange(0);
         }
 
-        public FrameSequence(IEnumerable<int> newSequence, float newFrameRate) : this()
+        public FrameSequence(IEnumerable<int> newSequence, double newFrameRate) : this()
         {
             sequence.AddRange(newSequence);
             frameRate = newFrameRate;
@@ -40,7 +40,7 @@ namespace Jigsaw
 
         public override void Update()
         {
-            double totalElapsedSeconds = Core.CurrentGameTime.TotalGameTime.TotalSeconds;
+            double totalElapsedSeconds = Core.TotalTime;
             if (totalElapsedSeconds >= nextFrameChange)
             {
                 SetNextFrameChange(totalElapsedSeconds);

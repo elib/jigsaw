@@ -126,17 +126,17 @@ namespace Jigsaw
 
         public int IndexOf(Updatable item)
         {
-            throw new NotImplementedException();
+            return _objects.IndexOf(item);
         }
 
         public void Insert(int index, Updatable item)
         {
-            throw new NotImplementedException();
+            _objects.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            _objects.RemoveAt(index);
         }
 
         public Updatable this[int index]

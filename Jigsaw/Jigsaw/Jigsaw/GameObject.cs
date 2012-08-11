@@ -114,15 +114,19 @@ namespace Jigsaw
         /// <param name="gameTime"></param>
         public override void Draw(SpriteBatch batch, bool drawParticles)
         {
-            if (!_initialized)
+            if (drawParticles == ShouldDrawForParticles)
             {
-                throw new Exception("Not yet initialized!");
-            }
-            //Rectangle r_dest = new Rectangle(10, 10, 64, 64);//_position.X, _position.Y, _size.X, _size.Y);
 
-            Color tint = Color.White;
-            tint.A = this.AlphaByte;
-            batch.Draw(_texture, DestinationRect, GetAnimationFrame(), tint, 0, Vector2.Zero, SpriteEffects.None, 0);
+                if (!_initialized)
+                {
+                    throw new Exception("Not yet initialized!");
+                }
+                //Rectangle r_dest = new Rectangle(10, 10, 64, 64);//_position.X, _position.Y, _size.X, _size.Y);
+
+                Color tint = Color.White;
+                tint.A = this.AlphaByte;
+                batch.Draw(_texture, DestinationRect, GetAnimationFrame(), tint, 0, Vector2.Zero, SpriteEffects.None, 0);
+            }
         }
 
         private Rectangle? GetAnimationFrame()

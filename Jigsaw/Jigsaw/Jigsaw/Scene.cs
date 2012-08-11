@@ -90,10 +90,11 @@ namespace Jigsaw
 
         public override void Draw(SpriteBatch batch, bool drawParticles)
         {
-            base.Draw(batch, drawParticles);
+            base.Draw(batch, false);
+            base.Draw(batch, true);
 
-            fadeInLayer.Draw(batch, drawParticles);
-            fadeOutLayer.Draw(batch, drawParticles);
+            fadeInLayer.Draw(batch, false);
+            fadeOutLayer.Draw(batch, false);
         }
     }
 }

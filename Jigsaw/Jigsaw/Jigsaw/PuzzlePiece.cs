@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Jigsaw
 {
-    class PuzzlePiece : GameObject
+    public class PuzzlePiece : EmittingGameObject<SparkleParticle>
     {
         Rectangle _coords;
         Puzzle _puzzle;
@@ -32,7 +32,8 @@ namespace Jigsaw
             }
         }
 
-        public PuzzlePiece(Texture2D texture, Rectangle pieceCoordinates, Puzzle parentPuzzle, Vector2 destinationOffset) : base(texture)
+        public PuzzlePiece(Texture2D texture, Rectangle pieceCoordinates, Puzzle parentPuzzle, Vector2 destinationOffset) 
+            : base(texture, 1, 30, 30)
         {
             ScaleFactor = SCALE_FACTOR;
 
@@ -42,6 +43,8 @@ namespace Jigsaw
 
             _size.X = _coords.Width;
             _size.Y = _coords.Height;
+
+
         }
 
         public bool TrySnap()
@@ -59,6 +62,8 @@ namespace Jigsaw
                 _position.X = _destinationOffset.X + _coords.X * ScaleFactor;
                 _position.Y = _destinationOffset.Y + _coords.Y * ScaleFactor;
 
+                this.StartEmitting();
+
                 return true;
             }
 
@@ -72,7 +77,14 @@ namespace Jigsaw
 
         public override void Draw(SpriteBatch batch, bool drawParticles)
         {
-            batch.Draw(_texture, DestinationRect, GetTextureCoords(), Color.White);
+            if (drawParticles)
+            {
+                base.Draw(batch, drawParticles);
+            }
+            else
+            {
+                batch.Draw(_texture, DestinationRect, GetTextureCoords(), Color.White);
+            }
         }
     }
 }

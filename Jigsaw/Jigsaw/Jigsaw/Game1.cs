@@ -211,8 +211,7 @@ namespace Jigsaw
             //draw current scene
             if (CurrentScene != null)
             {
-                CurrentScene.Draw(spriteBatch, false);
-                //CurrentScene.Draw(spriteBatch, true);
+                CurrentScene.Draw(spriteBatch, true);
             }
             spriteBatch.End();
 
