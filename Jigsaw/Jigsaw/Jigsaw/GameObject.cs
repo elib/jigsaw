@@ -65,6 +65,11 @@ namespace Jigsaw
 
             Alpha = 1;
 
+            initializeAnimation();
+        }
+
+        protected virtual void initializeAnimation()
+        {
             _animation = new AnimationInfo();
         }
 

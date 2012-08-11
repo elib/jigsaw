@@ -123,6 +123,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectGroup.cs" />
     <Compile Include="InputManager.cs" />
+    <Compile Include="Particle.cs" />
     <Compile Include="ParticleEmitter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayScene.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Puzzle.cs" />
     <Compile Include="PuzzlePiece.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="SparkleParticle.cs" />
     <Compile Include="TimeNotifier.cs" />
     <Compile Include="Updatable.cs" />
   </ItemGroup>

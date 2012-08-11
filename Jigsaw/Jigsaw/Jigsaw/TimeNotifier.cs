@@ -125,5 +125,13 @@ namespace Jigsaw
                 return false;
             }
         }
+
+        public bool Initialized
+        {
+            get
+            {
+                return _notificationTime > 0;
+            }
+        }
     }
 }

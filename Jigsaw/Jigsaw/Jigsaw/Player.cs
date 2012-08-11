@@ -31,6 +31,11 @@ namespace Jigsaw
             spawnLocation();
 
             _puzzle = puzzle;
+        }
+
+        protected override void initializeAnimation()
+        {
+            base.initializeAnimation();
 
             _animation.Add("idle", new int[] { 0 }, 1);
             _animation.Add("flicker", new int[] { 0, 1 }, 10);
