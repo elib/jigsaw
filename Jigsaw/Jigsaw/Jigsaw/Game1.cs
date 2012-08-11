@@ -33,6 +33,11 @@ namespace Jigsaw
 
         private Scene _nextScene = null;
 
+        //framerate stuff
+        private TimeSpan elapsedTime;
+        private int frameCounter = 0;
+        private int frameRate = 0;
+
         private void SetDimensions(bool fullscreen)
         {
             if (fullscreen)
@@ -55,9 +60,10 @@ namespace Jigsaw
         {
             Core.game = this;
 
+            IsFixedTimeStep = false;
+
             graphics = new GraphicsDeviceManager(this);
             SetDimensions(false);
-
             
 
             dynamicContentBuilder = new ContentBuilder();
@@ -119,7 +125,16 @@ namespace Jigsaw
                 availablePuzzleImages.Add(name);
             }
 
-            dynamicContentBuilder.Build();
+            var errors = dynamicContentBuilder.Build();
+            if (errors != null)
+            {
+                Console.WriteLine("*************************************");
+                Console.WriteLine("ERRORS!");
+                Console.WriteLine(errors);
+                Console.WriteLine("*************************************");
+                Exit();
+                return;
+            }
 
             SetScene(new PlayScene());
         }
@@ -140,6 +155,8 @@ namespace Jigsaw
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            calculateFrameRate(gameTime);
+
             Core.Update(gameTime);
 
             if (_nextScene != CurrentScene)
@@ -162,12 +179,28 @@ namespace Jigsaw
             base.Update(gameTime);
         }
 
+        private void calculateFrameRate(GameTime gameTime)
+        {
+            elapsedTime += gameTime.ElapsedGameTime;
+
+            if (elapsedTime > TimeSpan.FromSeconds(1))
+            {
+                elapsedTime -= TimeSpan.FromSeconds(1);
+                frameRate = frameCounter;
+                frameCounter = 0;
+                Console.WriteLine("FPS: {0}", frameRate);
+            }
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            //add frame
+            frameCounter++;
+
             Matrix scaleMatrix = Matrix.CreateScale(_zoomFactor);
 
             GraphicsDevice.Clear(Color.White);
@@ -182,6 +215,8 @@ namespace Jigsaw
             spriteBatch.End();
 
             base.Draw(gameTime);
+
+            
         }
 
         internal void SetScene(Scene newScene)

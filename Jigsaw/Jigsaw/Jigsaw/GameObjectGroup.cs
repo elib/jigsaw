@@ -114,7 +114,7 @@ namespace Jigsaw
 
         public bool IsReadOnly
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public bool Remove(Updatable item)
