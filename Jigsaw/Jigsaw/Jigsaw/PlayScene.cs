@@ -19,6 +19,12 @@ namespace Jigsaw
 
         private TimeNotifier idleTimer = new TimeNotifier(3);
 
+        public override void InitScene()
+        {
+            base.InitScene();
+            Core.GlobalBackground.IsAnimated = false;
+        }
+
         public PlayScene() : base(3, 3, 3)
         {
             //get next puzzle image

@@ -34,7 +34,7 @@ namespace Jigsaw
             _hangNotifier.NotifyMe(HangTime, true);
         }
 
-        public void InitScene()
+        public virtual void InitScene()
         {
             fadeInLayer.Start();
         }

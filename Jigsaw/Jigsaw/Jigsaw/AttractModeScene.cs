@@ -40,6 +40,12 @@ namespace Jigsaw
             refreshTrigSums();
         }
 
+        public override void InitScene()
+        {
+            base.InitScene();
+            Core.GlobalBackground.IsAnimated = true;
+        }
+
         private void refreshTrigSums()
         {
             float radius = Math.Min(Core.game.Width, Core.game.Height) / 3;
