@@ -78,10 +78,10 @@ namespace Jigsaw
                 foreach (var item in this)
                 {
                     GameObject obj = (GameObject)item;
-                    obj.Alpha = (float)((Math.Sin(
-                        kX * obj._position.X
-                        + kY * obj._position.Y
-                        - omega * Core.TotalTime) + 1.01) / 2.01);
+                    obj.Alpha = (float)((
+                        Math.Cos(- omega * Core.TotalTime) * 
+                        Math.Sin(kX * obj._position.X) *
+                        Math.Sin(kY * obj._position.Y) + 1.01) / 2.01);
                 }
             }
         }
