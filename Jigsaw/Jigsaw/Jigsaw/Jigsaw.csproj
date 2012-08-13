@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="AnimationInfo.cs" />
     <Compile Include="AttractModeScene.cs" />
+    <Compile Include="Background.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="ContentBuilder.cs" />
     <Compile Include="Core.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="PuzzlePiece.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="SparkleParticle.cs" />
+    <Compile Include="Tile.cs" />
     <Compile Include="TimeNotifier.cs" />
     <Compile Include="Updatable.cs" />
   </ItemGroup>

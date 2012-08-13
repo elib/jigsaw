@@ -84,12 +84,17 @@ namespace Jigsaw
         {
             base.UpdateAnimation();
 
+            Core.GlobalBackground.UpdateAnimation();
+
             fadeInLayer.UpdateAnimation();
             fadeOutLayer.UpdateAnimation();
         }
 
         public override void Draw(SpriteBatch batch, bool drawParticles)
         {
+            
+            Core.GlobalBackground.Draw(batch, false);
+
             base.Draw(batch, false);
             base.Draw(batch, true);
 

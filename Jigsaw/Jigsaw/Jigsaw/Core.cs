@@ -17,6 +17,8 @@ namespace Jigsaw
         public static double TotalTime { get; private set; }
         public static GameTime CurrentGameTime { get; private set; }
 
+        public static Background GlobalBackground { get; set; }
+
         public static void Update(GameTime gameTime)
         {
             TotalTime = gameTime.TotalGameTime.TotalSeconds;

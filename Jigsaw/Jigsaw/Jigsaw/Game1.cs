@@ -115,6 +115,8 @@ namespace Jigsaw
 
             availablePuzzleImages = new List<string>();
 
+            Core.GlobalBackground = new Background();
+
             DirectoryInfo d = Directory.CreateDirectory(@"D:\Projects\Games\Jigsaw\Assets\production\");
             foreach(var f in d.EnumerateFiles("*.jpg"))
             {
@@ -204,7 +206,7 @@ namespace Jigsaw
 
             Matrix scaleMatrix = Matrix.CreateScale(_zoomFactor);
 
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
 
             // Draw the sprite.
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);
