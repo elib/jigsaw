@@ -72,16 +72,17 @@ namespace Jigsaw
 
             if (_isAnimated)
             {
-                const double omega = 2 * Math.PI / 3.0;
+                const double omega = 2 * Math.PI / 2.0;
+                const double omega_drift = 2 * Math.PI / 20;
                 const double kX = 2 * Math.PI / 200;
                 const double kY = 2 * Math.PI / 200;
                 foreach (var item in this)
                 {
                     GameObject obj = (GameObject)item;
-                    obj.Alpha = (float)((
+                    obj.Alpha = (float)(0.3 + (
                         Math.Cos(- omega * Core.TotalTime) * 
-                        Math.Sin(kX * obj._position.X) *
-                        Math.Sin(kY * obj._position.Y) + 1.01) / 2.01);
+                        Math.Sin(kX * obj._position.X - omega_drift * Core.TotalTime) *
+                        Math.Sin(kY * obj._position.Y - omega_drift * Core.TotalTime) + 1.01) / 4.01);
                 }
             }
         }
