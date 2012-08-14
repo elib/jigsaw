@@ -206,7 +206,7 @@ namespace Jigsaw
 
             Matrix scaleMatrix = Matrix.CreateScale(_zoomFactor);
 
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(new Color(1, 77, 76));
 
             // Draw the sprite.
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);

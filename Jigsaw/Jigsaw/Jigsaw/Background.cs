@@ -15,8 +15,6 @@ namespace Jigsaw
             makeTiledBackground();
         }
 
-        private int _numWid, _numHei;
-
         private bool _isAnimated = false;
 
         public bool IsAnimated
@@ -48,19 +46,24 @@ namespace Jigsaw
         {
             Texture2D tiles = Core.game.Content.Load<Texture2D>("tiles");
 
-            _numWid = (int)Math.Ceiling(Core.game.Width / ((float)tiles.Width));
-            _numHei = (int)Math.Ceiling(Core.game.Height / ((float)tiles.Height));
+            int margin = 2;
 
-            int widExcess = ((_numWid * tiles.Width) - Core.game.Width) / 2;
-            int heiExcess = ((_numHei * tiles.Height) - Core.game.Height) / 2;
+            int tilesWidth = (tiles.Width + 2 * margin);
+            int tilesHeight = (tiles.Height + 2 * margin);
 
-            for (int x = 0; x < _numWid; x++)
+            int numWid = (int)Math.Ceiling(Core.game.Width / (float)tilesWidth);
+            int numHei = (int)Math.Ceiling(Core.game.Height / (float)tilesHeight);
+
+            int widExcess = ((numWid * tilesWidth) - Core.game.Width) / 2;
+            int heiExcess = ((numHei * tilesHeight) - Core.game.Height) / 2;
+
+            for (int x = 0; x < numWid; x++)
             {
-                for (int y = 0; y < _numHei; y++)
+                for (int y = 0; y < numHei; y++)
                 {
                     Tile tile = new Tile();
                     tile.Initialize(Core.game.Content);
-                    tile._position = new Vector2(x * tile.Size.X - widExcess, y * tile.Size.Y - heiExcess);
+                    tile._position = new Vector2(x * tilesWidth - widExcess, y * tilesHeight - heiExcess);
                     this.Add(tile);
                 }
             }
@@ -76,13 +79,16 @@ namespace Jigsaw
                 const double omega_drift = 2 * Math.PI / 20;
                 const double kX = 2 * Math.PI / 200;
                 const double kY = 2 * Math.PI / 200;
+
+                const double amplitude = 0.6;
+
                 foreach (var item in this)
                 {
                     GameObject obj = (GameObject)item;
-                    obj.Alpha = (float)(0.3 + (
+                    obj.Alpha = (float)((1 - amplitude) + amplitude*(
                         Math.Cos(- omega * Core.TotalTime) * 
                         Math.Sin(kX * obj._position.X - omega_drift * Core.TotalTime) *
-                        Math.Sin(kY * obj._position.Y - omega_drift * Core.TotalTime) + 1.01) / 4.01);
+                        Math.Sin(kY * obj._position.Y - omega_drift * Core.TotalTime) + 1) / 2);
                 }
             }
         }
