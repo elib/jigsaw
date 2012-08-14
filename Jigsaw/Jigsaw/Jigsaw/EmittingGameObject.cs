@@ -11,11 +11,22 @@ namespace Jigsaw
     {
         private ParticleEmitter<T> _emitter = new ParticleEmitter<T>();
 
-        public EmittingGameObject(Texture2D texture, int maxParticles, double ttl, float spawnRate) : base(texture)
+        private void setParams(int maxParticles, double ttl, float spawnRate)
         {
             _emitter.MaxParticles = maxParticles;
             _emitter.TTL = ttl;
             _emitter.SpawnRate = spawnRate;
+        }
+
+        public EmittingGameObject(int maxParticles, double ttl, float spawnRate)
+            : base()
+        {
+            this.setParams(maxParticles, ttl, spawnRate);
+        }
+
+        public EmittingGameObject(Texture2D texture, int maxParticles, double ttl, float spawnRate) : base(texture)
+        {
+            this.setParams(maxParticles, ttl, spawnRate);
         }
 
         public void StartEmitting()

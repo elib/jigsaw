@@ -30,9 +30,11 @@ namespace Jigsaw
 
             player1 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.One);
             player1.Initialize(Core.game.Content);
+            player1.StartEmitting();
 
             player2 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.Two);
             player2.Initialize(Core.game.Content);
+            player2.StartEmitting();
 
             this.Add(player1);
             this.Add(player2);
