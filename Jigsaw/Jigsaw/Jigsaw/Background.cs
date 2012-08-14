@@ -80,7 +80,7 @@ namespace Jigsaw
                 const double kX = 2 * Math.PI / 200;
                 const double kY = 2 * Math.PI / 200;
 
-                const double amplitude = 0.6;
+                const double amplitude = 0.8;
 
                 foreach (var item in this)
                 {
