@@ -44,11 +44,11 @@ namespace Jigsaw
             this.Add(puzzle);
             this.Add(carriedPieces);
 
-            player1 = new Player(puzzle, PlayerIndex.One);
+            player1 = new Player(puzzle, PlayerIndex.One, ParticleType.Sparkles);
             player1.Initialize(Core.game.Content);
             this.Add(player1);
 
-            player2 = new Player(puzzle, PlayerIndex.Two);
+            player2 = new Player(puzzle, PlayerIndex.Two, ParticleType.Sparkles);
             player2.Initialize(Core.game.Content);
         //    this.add(player2);
 

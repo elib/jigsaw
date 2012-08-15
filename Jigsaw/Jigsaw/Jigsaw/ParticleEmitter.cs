@@ -6,12 +6,17 @@ using Microsoft.Xna.Framework;
 
 namespace Jigsaw
 {
-    public class ParticleEmitter<T> : GameObjectGroup
-        where T : Particle, new()
+    public class ParticleEmitter : GameObjectGroup
     {
         public int MaxParticles { get; set; }
 
+        private ParticleType _particleType;
         private float _spawnRate = 1;
+
+        public ParticleEmitter(ParticleType particleType)
+        {
+            _particleType = particleType;
+        }
 
         /// <summary>
         /// Particles per second
@@ -76,7 +81,8 @@ namespace Jigsaw
 
                     if (Count < MaxParticles)
                     {
-                        Particle p = new T();
+                        Particle p = Particle.Create(_particleType);
+
                         p.Initialize(Core.game.Content);
                         double ang = Core.rand.NextDouble() * 2 * Math.PI;
                         Vector2 randDir = new Vector2((float)Math.Sin(ang), (float)Math.Cos(ang));

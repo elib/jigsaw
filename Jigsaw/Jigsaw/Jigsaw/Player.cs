@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Jigsaw
 {
-    public class Player : EmittingGameObject<SparkleParticle>
+    public class Player : EmittingGameObject
     {
         private const float ACCEL_RATE = 150;
 
@@ -19,8 +19,8 @@ namespace Jigsaw
 
         private PlayerIndex _playerIndex;
 
-        public Player(Puzzle puzzle, PlayerIndex playerIndex)
-            : base(200, 1, 100)
+        public Player(Puzzle puzzle, PlayerIndex playerIndex, ParticleType particleType)
+            : base(200, 1, 100, particleType)
         {
             _playerIndex = playerIndex;
 

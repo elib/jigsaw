@@ -5,6 +5,11 @@ using System.Text;
 
 namespace Jigsaw
 {
+    public enum ParticleType
+    {
+        Sparkles, Hearts
+    }
+
     public class Particle : GameObject
     {
         public bool IsAlive
@@ -47,6 +52,19 @@ namespace Jigsaw
                 {
                     this.Alpha = (float) (aliveFraction / 0.2);
                 }
+            }
+        }
+
+        internal static Particle Create(ParticleType particleType)
+        {
+            switch (particleType)
+            {
+                case ParticleType.Sparkles:
+                    return new SparkleParticle();
+                case ParticleType.Hearts:
+                    return new HeartParticle();
+                default:
+                    return new SparkleParticle();
             }
         }
     }

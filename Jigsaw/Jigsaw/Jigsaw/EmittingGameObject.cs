@@ -6,29 +6,30 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Jigsaw
 {
-    public class EmittingGameObject<T> : GameObject
-        where T : Particle, new()
+    public class EmittingGameObject : GameObject
     {
-        private ParticleEmitter<T> _emitter = new ParticleEmitter<T>();
+        private ParticleEmitter _emitter;
 
         private TimeNotifier _pulseTimer = new TimeNotifier();
 
-        private void setParams(int maxParticles, double ttl, float spawnRate)
+        private void setParams(int maxParticles, double ttl, float spawnRate, ParticleType particleType)
         {
+            _emitter = new ParticleEmitter(particleType);
             _emitter.MaxParticles = maxParticles;
             _emitter.TTL = ttl;
             _emitter.SpawnRate = spawnRate;
         }
 
-        public EmittingGameObject(int maxParticles, double ttl, float spawnRate)
+        public EmittingGameObject(int maxParticles, double ttl, float spawnRate, ParticleType particleType)
             : base()
         {
-            this.setParams(maxParticles, ttl, spawnRate);
+            this.setParams(maxParticles, ttl, spawnRate, particleType);
         }
 
-        public EmittingGameObject(Texture2D texture, int maxParticles, double ttl, float spawnRate) : base(texture)
+        public EmittingGameObject(Texture2D texture, int maxParticles, double ttl, float spawnRate, ParticleType particleType)
+            : base(texture)
         {
-            this.setParams(maxParticles, ttl, spawnRate);
+            this.setParams(maxParticles, ttl, spawnRate, particleType);
         }
 
         public void PulseEmitting(double time)

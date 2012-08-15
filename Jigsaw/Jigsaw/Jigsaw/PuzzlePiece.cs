@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Jigsaw
 {
-    public class PuzzlePiece : EmittingGameObject<HeartParticle>
+    public class PuzzlePiece : EmittingGameObject
     {
         Rectangle _coords;
         Puzzle _puzzle;
@@ -33,7 +33,7 @@ namespace Jigsaw
         }
 
         public PuzzlePiece(Texture2D texture, Rectangle pieceCoordinates, Puzzle parentPuzzle, Vector2 destinationOffset) 
-            : base(texture, 100, 2, 20)
+            : base(texture, 100, 2, 20, ParticleType.Hearts)
         {
             ScaleFactor = SCALE_FACTOR;
 
