@@ -10,7 +10,7 @@ namespace Jigsaw
         //public Puzzle puzzle;
         public Player player1;
         public Player player2;
-        public Canvas canvas;
+        //public Canvas canvas;
 
         private TimeNotifier refreshHarmonics = new TimeNotifier();
 
@@ -23,10 +23,10 @@ namespace Jigsaw
         public AttractModeScene()
             : base()
         {
-            canvas = new Canvas();
-            canvas.Initialize(Core.game.Content);
-            canvas.setSize(100, 100);
-            this.Add(canvas);
+            //canvas = new Canvas();
+            //canvas.Initialize(Core.game.Content);
+            //canvas.setSize(100, 100);
+            //this.Add(canvas);
 
             player1 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.One);
             player1.Initialize(Core.game.Content);

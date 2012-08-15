@@ -62,7 +62,7 @@ namespace Jigsaw
                 _position.X = _destinationOffset.X + _coords.X * ScaleFactor;
                 _position.Y = _destinationOffset.Y + _coords.Y * ScaleFactor;
 
-                this.StartEmitting();
+                this.PulseEmitting(2);
 
                 return true;
             }

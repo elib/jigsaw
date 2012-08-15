@@ -37,6 +37,7 @@ namespace Jigsaw
 
         public Vector2 _position = Vector2.Zero;
         private bool _isEmitting;
+        public Vector2 _velocity = Vector2.Zero;
 
         public void StartEmitting()
         {
@@ -68,13 +69,15 @@ namespace Jigsaw
             {
                 if (_spawnNextParticleTimer.Notify)
                 {
+                    _velocity.Normalize();
+
                     if (Count < MaxParticles)
                     {
                         Particle p = new T();
                         p.Initialize(Core.game.Content);
                         double ang = Core.rand.NextDouble() * 2 * Math.PI;
                         Vector2 randDir = new Vector2((float)Math.Sin(ang), (float)Math.Cos(ang));
-                        randDir.Normalize();
+                        randDir -= _velocity / 2;
                         p._position = randDir * 30 + _position;
                         p._velocity = randDir * 100;
                         p.TTL = this.TTL;

@@ -11,6 +11,8 @@ namespace Jigsaw
     {
         private ParticleEmitter<T> _emitter = new ParticleEmitter<T>();
 
+        private TimeNotifier _pulseTimer = new TimeNotifier();
+
         private void setParams(int maxParticles, double ttl, float spawnRate)
         {
             _emitter.MaxParticles = maxParticles;
@@ -29,6 +31,12 @@ namespace Jigsaw
             this.setParams(maxParticles, ttl, spawnRate);
         }
 
+        public void PulseEmitting(double time)
+        {
+            _emitter.StartEmitting();
+            _pulseTimer.NotifyMe(time, true);
+        }
+
         public void StartEmitting()
         {
             _emitter.StartEmitting();
@@ -44,6 +52,12 @@ namespace Jigsaw
             base.UpdateAnimation();
 
             _emitter._position = _position + (Size / 2);
+            _emitter._velocity = _velocity;
+
+            if (_pulseTimer.Notify)
+            {
+                StopEmitting();
+            }
             
             //I KNOW IT SUCKS
             _emitter.Update();

@@ -61,6 +61,16 @@ namespace Jigsaw
             return content.Load<Texture2D>("player");
         }
 
+        public override void UpdateAnimation()
+        {
+            base.UpdateAnimation();
+
+            if (_velocity.LengthSquared() > 0)
+            {
+                this.PulseEmitting(0.1);
+            }
+        }
+
         public override void Update()
         {
             base.Update();
