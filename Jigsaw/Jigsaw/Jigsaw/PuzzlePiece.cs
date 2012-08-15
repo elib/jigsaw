@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Jigsaw
 {
-    public class PuzzlePiece : EmittingGameObject<SparkleParticle>
+    public class PuzzlePiece : EmittingGameObject<HeartParticle>
     {
         Rectangle _coords;
         Puzzle _puzzle;
