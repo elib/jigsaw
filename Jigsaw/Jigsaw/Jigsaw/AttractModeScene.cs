@@ -39,6 +39,9 @@ namespace Jigsaw
             this.Add(player1);
             this.Add(player2);
 
+            player1.StartEmitting();
+            player2.StartEmitting();
+
             refreshTrigSums();
         }
 

@@ -69,7 +69,10 @@ namespace Jigsaw
             {
                 if (_spawnNextParticleTimer.Notify)
                 {
-                    _velocity.Normalize();
+                    if (_velocity.LengthSquared() > 0)
+                    {
+                        _velocity.Normalize();
+                    }
 
                     if (Count < MaxParticles)
                     {
@@ -77,7 +80,7 @@ namespace Jigsaw
                         p.Initialize(Core.game.Content);
                         double ang = Core.rand.NextDouble() * 2 * Math.PI;
                         Vector2 randDir = new Vector2((float)Math.Sin(ang), (float)Math.Cos(ang));
-                        randDir -= _velocity / 2;
+                        randDir -= _velocity;
                         p._position = randDir * 30 + _position;
                         p._velocity = randDir * 100;
                         p.TTL = this.TTL;

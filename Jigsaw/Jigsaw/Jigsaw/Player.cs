@@ -69,6 +69,15 @@ namespace Jigsaw
             {
                 this.PulseEmitting(0.1);
             }
+
+            if (attachedPiece != null)
+            {
+                this.Play("flicker");
+            }
+            else
+            {
+                this.Play("idle");
+            }
         }
 
         public override void Update()
@@ -125,15 +134,6 @@ namespace Jigsaw
             else
             {
                 _acceleration.Y = (float)(dir.Y * ACCEL_RATE * Core.TotalTime);
-            }
-
-            if (attachedPiece != null)
-            {
-                this.Play("flicker");
-            }
-            else
-            {
-                this.Play("idle");
             }
 
             if (InputManager.justPressedKeys.Contains(Keys.X))
