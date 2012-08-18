@@ -167,17 +167,12 @@ namespace Jigsaw
                 CurrentScene.InitScene();
             }
 
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
             InputManager.update();
 
             if (CurrentScene != null)
             {
                 CurrentScene.Update();
             }
-
 
             base.Update(gameTime);
         }

@@ -91,20 +91,23 @@ namespace Jigsaw
 
             Vector2 dir = Vector2.Zero;
 
-            if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Right))
+            
+
+            if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Right)
+                || InputManager.Going(_playerIndex, Directions.Right))
             {
                 dir.X = 1;
             }
-            else if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Left))
+            else if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Left) || InputManager.Going(_playerIndex, Directions.Left))
             {
                 dir.X = -1;
             }
 
-            if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Down))
+            if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Down) || InputManager.Going(_playerIndex, Directions.Down))
             {
                 dir.Y = 1;
             }
-            else if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Up))
+            else if (Keyboard.GetState(_playerIndex).IsKeyDown(Keys.Up) || InputManager.Going(_playerIndex, Directions.Up))
             {
                 dir.Y = -1;
             }
@@ -136,7 +139,7 @@ namespace Jigsaw
                 _acceleration.Y = (float)(dir.Y * ACCEL_RATE * Core.TotalTime);
             }
 
-            if (InputManager.justPressedKeys.Contains(Keys.X))
+            if (InputManager.justPressedKeys.Contains(Keys.X) || InputManager.justPressedButton[_playerIndex])
             {
                 //toggle grab a piece
                 if (attachedPiece != null)

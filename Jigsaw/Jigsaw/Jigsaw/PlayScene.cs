@@ -65,7 +65,8 @@ namespace Jigsaw
                 return;
             }
 
-            if (InputManager.justPressedKeys.Count > 0 || Keyboard.GetState().GetPressedKeys().Count() > 0)
+            if (InputManager.justPressedKeys.Count > 0 || Keyboard.GetState().GetPressedKeys().Count() > 0
+                || !InputManager.IsIdle())
             {
                 idleTimer.NotifyMe(true); //force reset if any key pressed
             }
@@ -83,6 +84,11 @@ namespace Jigsaw
             {
                 //woo hoo, time to move on
                 this.GoToNextScene(new PlayScene());
+            }
+
+            if (InputManager.IsFunctionButtonPressed)
+            {
+                Core.game.SetScene(new PlayScene());
             }
         }
     }

@@ -117,7 +117,7 @@ namespace Jigsaw
         {
             base.Update();
 
-            if (InputManager.justPressedKeys.Count > 0)
+            if (InputManager.justPressedKeys.Count > 0 || !InputManager.IsIdle())
             {
                 Core.game.SetScene(new PlayScene());
             }
