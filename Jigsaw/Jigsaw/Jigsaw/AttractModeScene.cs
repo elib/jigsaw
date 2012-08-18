@@ -134,7 +134,7 @@ namespace Jigsaw
         {
             //attract mode
             float radius = Math.Min(Core.game.Width, Core.game.Height) / 3;
-            double speed = 1 / 3.0;
+            double speed = 1 / 6.0;
 
             double baseRadians = 2 * speed * Math.PI * Core.TotalTime;
 

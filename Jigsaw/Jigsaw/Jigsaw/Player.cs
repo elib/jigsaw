@@ -11,7 +11,7 @@ namespace Jigsaw
 {
     public class Player : EmittingGameObject
     {
-        private const float ACCEL_RATE = 150;
+        private const float ACCEL_RATE = 180;
 
         private PuzzlePiece attachedPiece = null;
 
@@ -22,6 +22,7 @@ namespace Jigsaw
         public Player(Puzzle puzzle, PlayerIndex playerIndex, ParticleType particleType)
             : base(200, 1, 100, particleType)
         {
+            ScaleFactor = 2;
             _playerIndex = playerIndex;
 
             _maxVelocity.X = _maxVelocity.Y = 100;
@@ -61,7 +62,7 @@ namespace Jigsaw
             switch (_playerIndex)
             {
                 case PlayerIndex.One:
-                    return content.Load<Texture2D>("player");
+                    return content.Load<Texture2D>("player1");
                 case PlayerIndex.Two:
                     return content.Load<Texture2D>("player2");
             }
@@ -186,14 +187,14 @@ namespace Jigsaw
                 _position.Y = 0;
             }
 
-            if (_position.X + this._size.X > Core.game.Width)
+            if (_position.X + this.Size.X > Core.game.Width)
             {
-                _position.X = Core.game.Width - this._size.X;
+                _position.X = Core.game.Width - this.Size.X;
             }
 
-            if (_position.Y + this._size.Y > Core.game.Height)
+            if (_position.Y + this.Size.Y > Core.game.Height)
             {
-                _position.Y = Core.game.Height - this._size.Y;
+                _position.Y = Core.game.Height - this.Size.Y;
             }
         }
 

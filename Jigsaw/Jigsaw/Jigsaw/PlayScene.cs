@@ -17,7 +17,7 @@ namespace Jigsaw
         public GameObjectGroup completedPieces;
         public GameObjectGroup carriedPieces;
 
-        private TimeNotifier idleTimer = new TimeNotifier(3);
+        private TimeNotifier idleTimer = new TimeNotifier(5);
 
         public override void InitScene()
         {
@@ -25,7 +25,7 @@ namespace Jigsaw
             Core.GlobalBackground.IsAnimated = false;
         }
 
-        public PlayScene() : base(3, 3, 3)
+        public PlayScene() : base(2, 2, 1)
         {
             //get next puzzle image
             string puzzleImage = Core.GetNextImage();
