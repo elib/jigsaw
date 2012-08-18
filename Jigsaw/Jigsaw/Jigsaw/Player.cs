@@ -58,6 +58,14 @@ namespace Jigsaw
 
         public override Texture2D SetTexture(ContentManager content)
         {
+            switch (_playerIndex)
+            {
+                case PlayerIndex.One:
+                    return content.Load<Texture2D>("player");
+                case PlayerIndex.Two:
+                    return content.Load<Texture2D>("player2");
+            }
+
             return content.Load<Texture2D>("player");
         }
 
