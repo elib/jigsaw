@@ -139,7 +139,7 @@ namespace Jigsaw
 
         internal static bool IsIdle()
         {
-            if (isAnyGamePadPressed(PlayerIndex.One) || isAnyGamePadPressed(PlayerIndex.One)) return false;
+            if (isAnyGamePadPressed(PlayerIndex.One) || isAnyGamePadPressed(PlayerIndex.Two)) return false;
 
             return true;
         }

@@ -46,11 +46,12 @@ namespace Jigsaw
 
             player1 = new Player(puzzle, PlayerIndex.One, ParticleType.Sparkles);
             player1.Initialize(Core.game.Content);
-            this.Add(player1);
-
+            
             player2 = new Player(puzzle, PlayerIndex.Two, ParticleType.Sparkles);
             player2.Initialize(Core.game.Content);
-        //    this.add(player2);
+
+            this.Add(player2);
+            this.Add(player1);
 
             idleTimer.NotifyMe();
         }
@@ -84,6 +85,8 @@ namespace Jigsaw
             {
                 //woo hoo, time to move on
                 this.GoToNextScene(new PlayScene());
+                player1.Play("cheer");
+                player2.Play("cheer");
             }
 
             if (InputManager.IsFunctionButtonPressed)

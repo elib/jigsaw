@@ -20,6 +20,9 @@ namespace Jigsaw
         private bool _initialized = false;
         public Vector2 _position;
 
+        public Vector2? BoundingBoxDim = null;
+        public Vector2? BoundingBoxOffset = null;
+
         public Facing CurrentFacing { get; set; }
 
         public float ScaleFactor

@@ -40,6 +40,7 @@ namespace Jigsaw
 
             _animation.Add("idle", new int[] { 0 }, 1);
             _animation.Add("piecemove", new int[] { 1 }, 10);
+            _animation.Add("cheer", new int[] { 0, 2 }, 3);
             Play("idle");
         }
 
