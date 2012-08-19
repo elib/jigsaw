@@ -156,8 +156,6 @@ namespace Jigsaw
             return animatedSourceRect;
         }
 
-
-
         public void Play(string animationName, bool force = false)
         {
             _animation.SetCurrentAnimation(animationName, force);

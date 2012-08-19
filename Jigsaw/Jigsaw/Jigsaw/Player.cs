@@ -87,6 +87,18 @@ namespace Jigsaw
             {
                 this.Play("idle");
             }
+
+            if (Math.Abs(_velocity.X) > 0)
+            {
+                if (_velocity.X > 0)
+                {
+                    CurrentFacing = Facing.Right;
+                }
+                else
+                {
+                    CurrentFacing = Facing.Left;
+                }
+            }
         }
 
         public override void Update()
@@ -170,8 +182,17 @@ namespace Jigsaw
         {
             if (attachedPiece != null)
             {
-                attachedPiece._position.X = this._position.X;
-                attachedPiece._position.Y = this._position.Y;
+                if (CurrentFacing == Facing.Right)
+                {
+                    attachedPiece._position.X = this._position.X;
+                }
+                else
+                {
+                    attachedPiece._position.X = this._position.X - (attachedPiece.Size.X - Size.X);
+                }
+
+
+                attachedPiece._position.Y = this._position.Y - (attachedPiece.Size.Y - Size.Y) / 2;
             }
         }
 
