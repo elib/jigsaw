@@ -8,12 +8,19 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Jigsaw
 {
+    public enum Facing
+    {
+        Right, Left
+    }
+
     public class GameObject : Updatable
     {
 
         protected Texture2D _texture;
         private bool _initialized = false;
         public Vector2 _position;
+
+        public Facing CurrentFacing { get; set; }
 
         public float ScaleFactor
         {
@@ -60,6 +67,8 @@ namespace Jigsaw
             _drag = Vector2.Zero;
             _maxVelocity = Vector2.Zero;
             _texture = null;
+
+            CurrentFacing = Facing.Right;
 
             ScaleFactor = 1;
 
@@ -125,7 +134,12 @@ namespace Jigsaw
 
                 Color tint = Color.White;
                 tint.A = this.AlphaByte;
-                batch.Draw(_texture, DestinationRect, GetAnimationFrame(), tint, 0, Vector2.Zero, SpriteEffects.None, 0);
+                SpriteEffects spriteEffects = SpriteEffects.None;
+                if (CurrentFacing == Facing.Left)
+                {
+                    spriteEffects = SpriteEffects.FlipHorizontally;
+                }
+                batch.Draw(_texture, DestinationRect, GetAnimationFrame(), tint, 0, Vector2.Zero, spriteEffects, 0);
             }
         }
 
@@ -144,9 +158,9 @@ namespace Jigsaw
 
 
 
-        public void Play(string animationName)
+        public void Play(string animationName, bool force = false)
         {
-            _animation.SetCurrentAnimation(animationName);
+            _animation.SetCurrentAnimation(animationName, force);
         }
 
         /// <summary>

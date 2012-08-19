@@ -39,7 +39,7 @@ namespace Jigsaw
             base.initializeAnimation();
 
             _animation.Add("idle", new int[] { 0 }, 1);
-            _animation.Add("flicker", new int[] { 0, 1 }, 10);
+            _animation.Add("piecemove", new int[] { 1 }, 10);
             Play("idle");
         }
 
@@ -81,7 +81,7 @@ namespace Jigsaw
 
             if (attachedPiece != null)
             {
-                this.Play("flicker");
+                this.Play("piecemove", true);
             }
             else
             {
