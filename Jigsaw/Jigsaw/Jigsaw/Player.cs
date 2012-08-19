@@ -81,7 +81,7 @@ namespace Jigsaw
 
             if (attachedPiece != null)
             {
-                this.Play("piecemove", true);
+                this.Play("piecemove");
             }
             else
             {

@@ -35,15 +35,15 @@ namespace Jigsaw
         {
             if (isRandom)
             {
-                CurrentFrameNumber = (int)(Core.rand.NextDouble() * sequence.Count);
+                _currentFrameIndex = (int)(Core.rand.NextDouble() * sequence.Count);
             }
             else
             {
-                CurrentFrameNumber = 0;
+                _currentFrameIndex = 0;
             }
         }
 
-        public int CurrentFrameNumber { get; private set; }
+        private int _currentFrameIndex = 0;
 
         public override void Update()
         {
@@ -51,13 +51,21 @@ namespace Jigsaw
             if (totalElapsedSeconds >= nextFrameChange)
             {
                 SetNextFrameChange(totalElapsedSeconds);
-                CurrentFrameNumber = (CurrentFrameNumber + 1) % sequence.Count;
+                _currentFrameIndex = (_currentFrameIndex + 1) % sequence.Count;
             }
         }
 
         public override void Draw(SpriteBatch batch, bool drawParticles)
         {
             throw new NotImplementedException("You cannot render an frame sequence. You must use a sprite.");
+        }
+
+        public int CurrentFrameNumber
+        {
+            get
+            {
+                return this.sequence[_currentFrameIndex];
+            }
         }
     }
 
