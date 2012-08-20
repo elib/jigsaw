@@ -12,6 +12,11 @@ namespace Jigsaw
 
         private Core() { } //nope
 
+        public static Vector2 PointToVector(Point p)
+        {
+            return new Vector2(p.X, p.Y);
+        }
+
         public static Random rand = new Random();
 
         public static double TotalTime { get; private set; }

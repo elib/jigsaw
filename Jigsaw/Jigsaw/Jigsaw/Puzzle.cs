@@ -106,8 +106,11 @@ namespace Jigsaw
                 for (int y = 0; y < timesY; y++)
                 {
                     Rectangle pieceRect = new Rectangle(x * actualX, y * actualY, actualX, actualY);
-                    PuzzlePiece p = new PuzzlePiece(texture, pieceRect, this, _canvas._position + _canvas.offSet);
+                    PuzzlePiece p = new PuzzlePiece(texture, pieceRect, this, _canvas.TotalOffset);
                     this.Add(p);
+                    BackgroundPiece background = new BackgroundPiece(p.Size, _canvas.TotalOffset + Core.PointToVector(pieceRect.Location) * p.ScaleFactor);
+                    background.Initialize(Core.game.Content);
+                    _completedPieces.Add(background);
                 }
             }
         }
@@ -116,7 +119,7 @@ namespace Jigsaw
         {
             get
             {
-                return (_completedPieces.Count == _numberOfPieces);
+                return (_completedPieces.Count == _numberOfPieces * 2);
             }
         }
 

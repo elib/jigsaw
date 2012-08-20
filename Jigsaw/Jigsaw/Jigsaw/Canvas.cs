@@ -33,5 +33,13 @@ namespace Jigsaw
         {
             get; private set;
         }
+
+        public Vector2 TotalOffset
+        {
+            get
+            {
+                return _position + offSet;
+            }
+        }
     }
 }

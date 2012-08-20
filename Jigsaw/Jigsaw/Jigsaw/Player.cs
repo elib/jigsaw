@@ -183,17 +183,17 @@ namespace Jigsaw
         {
             if (attachedPiece != null)
             {
-                if (CurrentFacing == Facing.Right)
-                {
-                    attachedPiece._position.X = this._position.X;
-                }
-                else
-                {
-                    attachedPiece._position.X = this._position.X - (attachedPiece.Size.X - Size.X);
-                }
+                //if (CurrentFacing == Facing.Right)
+                //{
+                    
+                //}
+                //else
+                //{
+                //    attachedPiece._position.X = this._position.X - (attachedPiece.Size.X - Size.X);
+                //}
 
-
-                attachedPiece._position.Y = this._position.Y - (attachedPiece.Size.Y - Size.Y) / 2;
+                attachedPiece._position = this._position - (attachedPiece.Size - Size) / 2; ;
+                //attachedPiece._position.Y = this._position.Y - (attachedPiece.Size.Y - Size.Y) / 2;
             }
         }
 

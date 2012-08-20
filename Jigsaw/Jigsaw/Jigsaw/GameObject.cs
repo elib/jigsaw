@@ -142,21 +142,24 @@ namespace Jigsaw
                 {
                     spriteEffects = SpriteEffects.FlipHorizontally;
                 }
-                batch.Draw(_texture, DestinationRect, GetAnimationFrame(), tint, 0, Vector2.Zero, spriteEffects, 0);
+                batch.Draw(_texture, DestinationRect, AnimationFrame, tint, 0, Vector2.Zero, spriteEffects, 0);
             }
         }
 
-        private Rectangle? GetAnimationFrame()
+        private Rectangle? AnimationFrame
         {
-            //if animated ... get current animation
-            if (_animation.CurrentAnimation == null)
+            get
             {
-                return null;
-            }
+                //if animated ... get current animation
+                if (_animation.CurrentAnimation == null)
+                {
+                    return null;
+                }
 
-            int number = _animation.CurrentAnimation.CurrentFrameNumber;
-            Rectangle animatedSourceRect = new Rectangle((int)(number * _size.X), 0, (int)_size.X, (int)_size.Y);
-            return animatedSourceRect;
+                int number = _animation.CurrentAnimation.CurrentFrameNumber;
+                Rectangle animatedSourceRect = new Rectangle((int)(number * _size.X), 0, (int)_size.X, (int)_size.Y);
+                return animatedSourceRect;
+            }
         }
 
         public void Play(string animationName, bool force = false)
