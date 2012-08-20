@@ -63,8 +63,13 @@ namespace Jigsaw
             IsFixedTimeStep = false;
 
             graphics = new GraphicsDeviceManager(this);
+
+#if DEBUG
             SetDimensions(false);
-            
+#else
+            SetDimensions(true);
+#endif
+
 
             dynamicContentBuilder = new ContentBuilder();
             ServiceContainer services = new ServiceContainer();

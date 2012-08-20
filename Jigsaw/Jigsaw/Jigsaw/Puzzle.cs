@@ -28,15 +28,11 @@ namespace Jigsaw
         {
             //load info
             Texture2D texture = Core.game.dynamicContentManager.Load<Texture2D>(imageSource);
-            //if (roughSize > texture.Width || roughSize > texture.Height)
-            //{
-            //    throw new Exception("Rough size requested is too large for this image.");
-            //}
-
             _canvas = canvas;
-            _canvas.setSize((int)(texture.Width * PuzzlePiece.SCALE_FACTOR), (int) (texture.Height * PuzzlePiece.SCALE_FACTOR));
+            _canvas.setSize((texture.Width * PuzzlePiece.SCALE_FACTOR), (texture.Height * PuzzlePiece.SCALE_FACTOR));
 
-            chopUp(roughSize, texture);
+            Vector2 finalDim = chopUp(roughSize, texture);
+            _canvas.setSize(finalDim.X, finalDim.Y);
 
             distributePieces();
 
@@ -89,8 +85,10 @@ namespace Jigsaw
             gobj._position.Y = top;
         }
 
-        private void chopUp(int roughSize, Texture2D texture)
+        private Vector2 chopUp(int roughSize, Texture2D texture)
         {
+            Vector2 finalDim = Vector2.Zero;
+
             int timesX = (int)Math.Ceiling((double)(texture.Width / ((double)roughSize))); //rounded up!
             int timesY = (int)Math.Ceiling((double)(texture.Height / ((double)roughSize))); //rounded up!
 
@@ -99,6 +97,9 @@ namespace Jigsaw
 
             if (actualX % 2 == 1) actualX--;
             if (actualY % 2 == 1) actualY--;
+
+            finalDim.X = timesX * actualX * PuzzlePiece.SCALE_FACTOR;
+            finalDim.Y = timesY * actualY * PuzzlePiece.SCALE_FACTOR;
 
             //now slice it up
             for (int x = 0; x < timesX; x++)
@@ -113,6 +114,8 @@ namespace Jigsaw
                     _completedPieces.Add(background);
                 }
             }
+
+            return finalDim;
         }
 
         private bool alreadyNotified = false;

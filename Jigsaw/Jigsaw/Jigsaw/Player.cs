@@ -11,7 +11,7 @@ namespace Jigsaw
 {
     public class Player : EmittingGameObject
     {
-        private const float ACCEL_RATE = 180;
+        private const float ACCEL_RATE = 20000;
 
         private PuzzlePiece attachedPiece = null;
 
@@ -20,13 +20,13 @@ namespace Jigsaw
         private PlayerIndex _playerIndex;
 
         public Player(Puzzle puzzle, PlayerIndex playerIndex, ParticleType particleType)
-            : base(200, 1, 100, particleType)
+            : base(300, 1.3, 130, particleType)
         {
             ScaleFactor = 2;
             _playerIndex = playerIndex;
 
-            _maxVelocity.X = _maxVelocity.Y = 100;
-            _drag.X = _drag.Y = 250;
+            _maxVelocity.X = _maxVelocity.Y = 200;
+            _drag.X = _drag.Y = 800;
             _size.X = _size.Y = 32;
 
             spawnLocation();
@@ -148,7 +148,7 @@ namespace Jigsaw
             }
             else
             {
-                _acceleration.X = (float)(dir.X * ACCEL_RATE * Core.TotalTime);
+                _acceleration.X = (float)(dir.X * ACCEL_RATE * Core.CurrentGameTime.ElapsedGameTime.TotalSeconds);
             }
 
             //Y
@@ -158,7 +158,7 @@ namespace Jigsaw
             }
             else
             {
-                _acceleration.Y = (float)(dir.Y * ACCEL_RATE * Core.TotalTime);
+                _acceleration.Y = (float)(dir.Y * ACCEL_RATE * Core.CurrentGameTime.ElapsedGameTime.TotalSeconds);
             }
 
             if (InputManager.justPressedKeys.Contains(Keys.X) || InputManager.justPressedButton[_playerIndex])

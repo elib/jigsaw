@@ -17,7 +17,7 @@ namespace Jigsaw
         //width of the surrounding border
         private const float _percentage = 9.0f / 64.0f;
 
-        internal void setSize(int width, int height)
+        internal void setSize(float width, float height)
         {
             _size.X = width * (1.0f + _percentage * 2);
             _size.Y = height * (1.0f + _percentage * 2);
