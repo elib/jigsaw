@@ -19,6 +19,9 @@ namespace Jigsaw
 
         private TimeNotifier idleTimer = new TimeNotifier(5);
 
+        private Dictionary<PlayerIndex, Vector2> _cheeringPositions = new Dictionary<PlayerIndex, Vector2>();
+        private double cheerStartTime = 0;
+
         public override void InitScene()
         {
             base.InitScene();
@@ -62,6 +65,7 @@ namespace Jigsaw
 
             if (IsTransitioning)
             {
+                cheer();
                 idleTimer.NotifyMe(true); //keep pushing idle timer ahead
                 return;
             }
@@ -84,14 +88,33 @@ namespace Jigsaw
             if (puzzle.IsComplete)
             {
                 //woo hoo, time to move on
+
+                player1.StartEmitting();
+                player2.StartEmitting();
+
+                _cheeringPositions[PlayerIndex.One] = player1._position;
+                _cheeringPositions[PlayerIndex.Two] = player2._position;
+                cheerStartTime = Core.TotalTime;
+                
                 this.GoToNextScene(new PlayScene());
-                player1.Play("cheer");
-                player2.Play("cheer");
             }
 
             if (InputManager.IsFunctionButtonPressed)
             {
                 Core.game.SetScene(new PlayScene());
+            }
+        }
+
+        private void cheer()
+        {
+            player1.Play("cheer");
+            player2.Play("cheer");
+            const double omega = 1;
+            const float amplitude = 50;
+            if (cheerStartTime > 0)
+            {
+                player1._position.Y = _cheeringPositions[PlayerIndex.One].Y + (float)Math.Sin(2 * Math.PI * omega * (Core.TotalTime - cheerStartTime)) * amplitude;
+                player2._position.Y = _cheeringPositions[PlayerIndex.Two].Y + (float)Math.Sin(- 2 * Math.PI * omega * (Core.TotalTime - cheerStartTime)) * amplitude;
             }
         }
     }

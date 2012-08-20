@@ -11,8 +11,8 @@ namespace Jigsaw
     {
         private bool _inputEnabled = true;
 
-        private FadingLayer fadeInLayer;
-        private FadingLayer fadeOutLayer;
+        protected FadingLayer fadeInLayer;
+        protected FadingLayer fadeOutLayer;
         
         private TimeNotifier _hangNotifier = new TimeNotifier();
         public double HangTime { get; set; }

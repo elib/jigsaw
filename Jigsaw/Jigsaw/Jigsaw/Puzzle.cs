@@ -115,11 +115,22 @@ namespace Jigsaw
             }
         }
 
+        private bool alreadyNotified = false;
         public bool IsComplete
         {
             get
             {
-                return (_completedPieces.Count == _numberOfPieces * 2);
+                if (alreadyNotified)
+                {
+                    return false;
+                }
+                if(_completedPieces.Count == _numberOfPieces * 2)
+                {
+                    alreadyNotified = true;
+                    return true;
+                }
+
+                return false;
             }
         }
 

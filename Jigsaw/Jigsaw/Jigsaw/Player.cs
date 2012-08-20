@@ -183,17 +183,7 @@ namespace Jigsaw
         {
             if (attachedPiece != null)
             {
-                //if (CurrentFacing == Facing.Right)
-                //{
-                    
-                //}
-                //else
-                //{
-                //    attachedPiece._position.X = this._position.X - (attachedPiece.Size.X - Size.X);
-                //}
-
                 attachedPiece._position = this._position - (attachedPiece.Size - Size) / 2; ;
-                //attachedPiece._position.Y = this._position.Y - (attachedPiece.Size.Y - Size.Y) / 2;
             }
         }
 
@@ -233,11 +223,10 @@ namespace Jigsaw
 
         private void Detach()
         {
-            //add cooler detach logic
             if (attachedPiece.TrySnap())
             {
                 //visual effects here
-                attachedPiece.Bounce(GameObject.MEDIUM_BOUNCE_PERCENTAGE, true);
+                attachedPiece.Bounce(GameObject.MAX_BOUNCE_PERCENTAGE, true);
                 _puzzle.PiecePlaced(attachedPiece);
             }
             else
