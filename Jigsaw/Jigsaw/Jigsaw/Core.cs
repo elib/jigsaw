@@ -30,7 +30,8 @@ namespace Jigsaw
             CurrentGameTime = gameTime;
         }
 
-        private static string lastChosen = null;
+        private static Queue<string> recentChosen = new Queue<string>();
+
         public static string GetNextImage()
         {
             if (game.availablePuzzleImages.Count == 1)
@@ -41,15 +42,23 @@ namespace Jigsaw
 
             List<string> temporaryList = new List<string>(game.availablePuzzleImages);
 
-            if (lastChosen != null)
+            foreach(var recent in recentChosen)
             {
                 //remove last chosen from the temporary list
-                temporaryList.Remove(lastChosen);
+                temporaryList.Remove(recent);
             }
 
             int randIndex = (int) (Math.Floor(rand.NextDouble() * temporaryList.Count));
-            lastChosen = temporaryList[randIndex];
-            return lastChosen;
+            string randomChosen = temporaryList[randIndex];
+
+            int maxRecents = (int)(Math.Ceiling(game.availablePuzzleImages.Count / 20.0));
+            if (recentChosen.Count >= maxRecents)
+            {
+                recentChosen.Dequeue();
+            }
+            recentChosen.Enqueue(randomChosen);
+
+            return randomChosen;
         }
     }
 }

@@ -99,7 +99,7 @@ namespace Jigsaw
                 this.GoToNextScene(new PlayScene());
             }
 
-            if (InputManager.IsFunctionButtonPressed)
+            if (InputManager.IsFunctionButtonPressed || InputManager.justPressedKeys.Contains(Keys.N))
             {
                 Core.game.SetScene(new PlayScene());
             }

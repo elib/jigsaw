@@ -71,7 +71,7 @@ namespace Jigsaw
 
             GameObject gobj = (GameObject)obj;
 
-            int leftSpace = 0;// (int) ((Core.game.Width - _canvas.Size.X - margin*4 - gobj.Size.X*2) / 2);
+            int leftSpace = (int) ((Core.game.Width - _canvas.Size.X - margin*4 - gobj.Size.X*2) / 2);
 
             int left = margin;
             if(!leftSide)
