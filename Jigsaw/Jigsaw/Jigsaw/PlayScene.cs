@@ -17,7 +17,7 @@ namespace Jigsaw
         public GameObjectGroup completedPieces;
         public GameObjectGroup carriedPieces;
 
-        private TimeNotifier idleTimer = new TimeNotifier(5);
+        private TimeNotifier idleTimer = new TimeNotifier(15);
 
         private Dictionary<PlayerIndex, Vector2> _cheeringPositions = new Dictionary<PlayerIndex, Vector2>();
         private double cheerStartTime = 0;

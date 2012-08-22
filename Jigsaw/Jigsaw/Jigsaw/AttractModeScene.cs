@@ -36,8 +36,8 @@ namespace Jigsaw
             player2.Initialize(Core.game.Content);
             player2.StartEmitting();
 
-            this.Add(player1);
             this.Add(player2);
+            this.Add(player1);
 
             player1.StartEmitting();
             player2.StartEmitting();
@@ -134,7 +134,7 @@ namespace Jigsaw
         {
             //attract mode
             float radius = Math.Min(Core.game.Width, Core.game.Height) / 3;
-            double speed = 1 / 6.0;
+            double speed = 1 / 10.0;
 
             double baseRadians = 2 * speed * Math.PI * Core.TotalTime;
 
