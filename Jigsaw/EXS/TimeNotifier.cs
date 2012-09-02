@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Jigsaw
+namespace EXS
 {
-    class TimeNotifier
+    public class TimeNotifier
     {
         private double _notificationTime = 0;
         private bool _hasNotified = false;

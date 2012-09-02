@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Jigsaw
+namespace EXS
 {
     public class FadingLayer : GameObject
     {

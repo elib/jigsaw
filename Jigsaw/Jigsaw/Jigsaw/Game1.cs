@@ -8,92 +8,25 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using ThirdParty;
 using System.ComponentModel.Design;
 using System.IO;
+using EXS;
 
 namespace Jigsaw
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : ExsGame
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
-        private ContentBuilder dynamicContentBuilder;
-        public ContentManager dynamicContentManager;
-
         public List<string> availablePuzzleImages;
 
-        private float _zoomFactor = 2;
-
-        public Scene CurrentScene { get; private set; }
-
-        private Scene _nextScene = null;
-
-        //framerate stuff
-        private TimeSpan elapsedTime;
-        private int frameCounter = 0;
-        private int frameRate = 0;
-
-        private void SetDimensions(bool fullscreen)
-        {
-            if (fullscreen)
-            {
-                //get default dimensions used by screen
-                DisplayMode dm = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
-                graphics.PreferredBackBufferFormat = dm.Format;
-                graphics.PreferredBackBufferHeight = dm.Height;
-                graphics.PreferredBackBufferWidth = dm.Width;
-                graphics.IsFullScreen = true;
-            }
-            else
-            {
-                graphics.PreferredBackBufferWidth = 1100;
-                graphics.PreferredBackBufferHeight = 600;
-            }
-        }
-
         public Game1()
+            : base()
         {
-            Core.game = this;
 
-            IsFixedTimeStep = false;
-
-            graphics = new GraphicsDeviceManager(this);
-
-#if DEBUG
-            SetDimensions(false);
-#else
-            SetDimensions(true);
-#endif
-
-
-            dynamicContentBuilder = new ContentBuilder();
-            ServiceContainer services = new ServiceContainer();
-            // Register the service, so components like ContentManager can find it.
-            services.AddService(typeof(IGraphicsDeviceService), graphics);
-
-            dynamicContentManager = new ContentManager(services, dynamicContentBuilder.OutputDirectory);
-            Content.RootDirectory = "Content";
-        }
-
-        public int Width
-        {
-            get
-            {
-                return (int)(GraphicsDevice.Viewport.Width / _zoomFactor);
-            }
-        }
-
-        public int Height
-        {
-            get
-            {
-                return (int)(GraphicsDevice.Viewport.Height / _zoomFactor);
-            }
+            JigsawCore.specificGame = this;
+        
         }
 
         /// <summary>
@@ -115,12 +48,11 @@ namespace Jigsaw
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            base.LoadContent();
 
             availablePuzzleImages = new List<string>();
 
-            Core.GlobalBackground = new Background();
+            JigsawCore.GlobalBackground = new Background();
 
             DirectoryInfo d = Directory.CreateDirectory(@"D:\Projects\Games\Jigsaw\Assets\production\");
             foreach(var f in d.EnumerateFiles("*.jpg"))
@@ -153,6 +85,14 @@ namespace Jigsaw
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            base.UnloadContent();
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            
+
+            base.Draw(gameTime);
         }
 
         /// <summary>
@@ -162,69 +102,7 @@ namespace Jigsaw
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            calculateFrameRate(gameTime);
-
-            Core.Update(gameTime);
-
-            if (_nextScene != CurrentScene)
-            {
-                CurrentScene = _nextScene;
-                CurrentScene.InitScene();
-            }
-
-            InputManager.update();
-
-            if (CurrentScene != null)
-            {
-                CurrentScene.Update();
-            }
-
             base.Update(gameTime);
-        }
-
-        private void calculateFrameRate(GameTime gameTime)
-        {
-            elapsedTime += gameTime.ElapsedGameTime;
-
-            if (elapsedTime > TimeSpan.FromSeconds(1))
-            {
-                elapsedTime -= TimeSpan.FromSeconds(1);
-                frameRate = frameCounter;
-                frameCounter = 0;
-                Console.WriteLine("FPS: {0}", frameRate);
-            }
-        }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            //add frame
-            frameCounter++;
-
-            Matrix scaleMatrix = Matrix.CreateScale(_zoomFactor);
-
-            GraphicsDevice.Clear(new Color(1, 77, 76));
-
-            // Draw the sprite.
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, scaleMatrix);
-            //draw current scene
-            if (CurrentScene != null)
-            {
-                CurrentScene.Draw(spriteBatch, true);
-            }
-            spriteBatch.End();
-
-            base.Draw(gameTime);
-
-            
-        }
-
-        internal void SetScene(Scene newScene)
-        {
-            _nextScene = newScene;
         }
     }
 }

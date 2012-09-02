@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EXS;
 
 namespace Jigsaw
 {
-    class AttractModeScene : Scene
+    class AttractModeScene : JigsawScene
     {
         //public Puzzle puzzle;
         public Player player1;
@@ -28,11 +29,11 @@ namespace Jigsaw
             //canvas.setSize(100, 100);
             //this.Add(canvas);
 
-            player1 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.One, ParticleType.Hearts);
+            player1 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.One, typeof(HeartParticle));
             player1.Initialize(Core.game.Content);
             player1.StartEmitting();
 
-            player2 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.Two, ParticleType.Hearts);
+            player2 = new Player(null, Microsoft.Xna.Framework.PlayerIndex.Two, typeof(HeartParticle));
             player2.Initialize(Core.game.Content);
             player2.StartEmitting();
 
@@ -48,7 +49,7 @@ namespace Jigsaw
         public override void InitScene()
         {
             base.InitScene();
-            Core.GlobalBackground.IsAnimated = true;
+            JigsawCore.GlobalBackground.IsAnimated = true;
         }
 
         private void refreshTrigSums()

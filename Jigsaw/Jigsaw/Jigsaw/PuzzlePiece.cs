@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EXS;
 
 namespace Jigsaw
 {
@@ -33,7 +34,7 @@ namespace Jigsaw
         }
 
         public PuzzlePiece(Texture2D texture, Rectangle pieceCoordinates, Puzzle parentPuzzle, Vector2 destinationOffset) 
-            : base(texture, 100, 2, 20, ParticleType.Hearts)
+            : base(texture, 100, 2, 20, typeof(HeartParticle))
         {
             ScaleFactor = SCALE_FACTOR;
 

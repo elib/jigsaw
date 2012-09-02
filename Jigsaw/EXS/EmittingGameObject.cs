@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Jigsaw
+namespace EXS
 {
     public class EmittingGameObject : GameObject
     {
@@ -12,7 +12,7 @@ namespace Jigsaw
 
         private TimeNotifier _pulseTimer = new TimeNotifier();
 
-        private void setParams(int maxParticles, double ttl, float spawnRate, ParticleType particleType)
+        private void setParams(int maxParticles, double ttl, float spawnRate, Type particleType)
         {
             _emitter = new ParticleEmitter(particleType);
             _emitter.MaxParticles = maxParticles;
@@ -20,13 +20,13 @@ namespace Jigsaw
             _emitter.SpawnRate = spawnRate;
         }
 
-        public EmittingGameObject(int maxParticles, double ttl, float spawnRate, ParticleType particleType)
+        public EmittingGameObject(int maxParticles, double ttl, float spawnRate, Type particleType)
             : base()
         {
             this.setParams(maxParticles, ttl, spawnRate, particleType);
         }
 
-        public EmittingGameObject(Texture2D texture, int maxParticles, double ttl, float spawnRate, ParticleType particleType)
+        public EmittingGameObject(Texture2D texture, int maxParticles, double ttl, float spawnRate, Type particleType)
             : base(texture)
         {
             this.setParams(maxParticles, ttl, spawnRate, particleType);

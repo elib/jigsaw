@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace Jigsaw
+namespace EXS
 {
     public class ParticleEmitter : GameObjectGroup
     {
         public int MaxParticles { get; set; }
 
-        private ParticleType _particleType;
+        private Type _particleType;
         private float _spawnRate = 1;
 
-        public ParticleEmitter(ParticleType particleType)
+        public ParticleEmitter(Type particleType)
         {
             _particleType = particleType;
         }

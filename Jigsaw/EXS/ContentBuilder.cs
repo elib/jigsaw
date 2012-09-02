@@ -18,7 +18,7 @@ using Microsoft.Build.Execution;
 using Microsoft.Build.Framework;
 #endregion
 
-namespace ThirdParty
+namespace EXS.ThirdParty
 {
     /// <summary>
     /// This class wraps the MSBuild functionality needed to build XNA Framework
@@ -28,7 +28,7 @@ namespace ThirdParty
     /// in a temporary directory. After the build finishes, you can use a regular
     /// ContentManager to load these temporary .xnb files in the usual way.
     /// </summary>
-    class ContentBuilder : IDisposable
+    public class ContentBuilder : IDisposable
     {
         #region Fields
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Jigsaw
+namespace EXS
 {
     public class FrameSequence : Updatable
     {
@@ -115,7 +115,7 @@ namespace Jigsaw
             throw new NotImplementedException("You cannot render an animation. You must use a sprite.");
         }
 
-        internal void RandomFrame()
+        public void RandomFrame()
         {
             if (CurrentAnimation != null)
             {

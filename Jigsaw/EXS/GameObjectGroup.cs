@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Jigsaw
+namespace EXS
 {
     //it's like a scene ... but has extra stuff to help us check locations and stuff?
     public class GameObjectGroup : Updatable, IEnumerable<Updatable>, ICollection<Updatable>

@@ -3,13 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Jigsaw
+namespace EXS
 {
-    public enum ParticleType
-    {
-        Sparkles, Hearts
-    }
-
     public class Particle : GameObject
     {
         public bool IsAlive
@@ -55,17 +50,21 @@ namespace Jigsaw
             }
         }
 
-        internal static Particle Create(ParticleType particleType)
+        internal static Particle Create(Type particleType)
         {
-            switch (particleType)
-            {
-                case ParticleType.Sparkles:
-                    return new SparkleParticle();
-                case ParticleType.Hearts:
-                    return new HeartParticle();
-                default:
-                    return new SparkleParticle();
-            }
+            var constructor = particleType.GetConstructor(System.Type.EmptyTypes);
+            Particle theParticle = (Particle)constructor.Invoke(null);
+            return theParticle;
+
+            //switch (particleType)
+            //{
+            //    case ParticleType.Sparkles:
+            //        return new SparkleParticle();
+            //    case ParticleType.Hearts:
+            //        return new HeartParticle();
+            //    default:
+            //        return new SparkleParticle();
+            //}
         }
     }
 }

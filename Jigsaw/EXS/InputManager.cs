@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-namespace Jigsaw
+namespace EXS
 {
     public enum Directions
     {
@@ -100,7 +100,7 @@ namespace Jigsaw
             lastKeys = newKeys;
         }
 
-        internal static bool Going(PlayerIndex playerIndex, Directions direction)
+        public static bool Going(PlayerIndex playerIndex, Directions direction)
         {
             var state = GamePad.GetState(playerIndex);
             switch (direction)
@@ -137,7 +137,7 @@ namespace Jigsaw
             return false;
         }
 
-        internal static bool IsIdle()
+        public static bool IsIdle()
         {
             if (isAnyGamePadPressed(PlayerIndex.One) || isAnyGamePadPressed(PlayerIndex.Two)) return false;
 

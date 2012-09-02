@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using Microsoft.Build.Framework;
 #endregion
 
-namespace ThirdParty
+namespace EXS.ThirdParty
 {
     /// <summary>
     /// Custom implementation of the MSBuild ILogger interface records

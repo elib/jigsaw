@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using EXS;
 
 namespace Jigsaw
 {
-    class PlayScene : Scene
+    class PlayScene : JigsawScene
     {
         public Puzzle puzzle;
         public Player player1;
@@ -25,13 +26,13 @@ namespace Jigsaw
         public override void InitScene()
         {
             base.InitScene();
-            Core.GlobalBackground.IsAnimated = false;
+            JigsawCore.GlobalBackground.IsAnimated = false;
         }
 
         public PlayScene() : base(2, 2, 1)
         {
             //get next puzzle image
-            string puzzleImage = Core.GetNextImage();
+            string puzzleImage = JigsawCore.GetNextImage();
 
             canvas = new Canvas();
             canvas.Initialize(Core.game.Content);
@@ -47,10 +48,10 @@ namespace Jigsaw
             this.Add(puzzle);
             this.Add(carriedPieces);
 
-            player1 = new Player(puzzle, PlayerIndex.One, ParticleType.Sparkles);
+            player1 = new Player(puzzle, PlayerIndex.One, typeof(SparkleParticle));
             player1.Initialize(Core.game.Content);
             
-            player2 = new Player(puzzle, PlayerIndex.Two, ParticleType.Sparkles);
+            player2 = new Player(puzzle, PlayerIndex.Two, typeof(SparkleParticle));
             player2.Initialize(Core.game.Content);
 
             this.Add(player2);

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using EXS;
 
 namespace Jigsaw
 {
@@ -19,7 +20,7 @@ namespace Jigsaw
 
         private PlayerIndex _playerIndex;
 
-        public Player(Puzzle puzzle, PlayerIndex playerIndex, ParticleType particleType)
+        public Player(Puzzle puzzle, PlayerIndex playerIndex, Type particleType)
             : base(300, 1.3, 130, particleType)
         {
             ScaleFactor = 2;

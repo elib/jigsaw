@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using System.IO;
 using Microsoft.Xna.Framework;
 
-namespace Jigsaw
+namespace EXS
 {
     public static class MyExtensions
     {
